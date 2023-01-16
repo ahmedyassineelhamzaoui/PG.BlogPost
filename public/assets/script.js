@@ -26,3 +26,17 @@ iconRight.onclick=()=>{
     })
     BlogText.style.display="block"
 }
+// button addpost
+let addpost = document.querySelector("#add-post")
+let postModal = document.querySelector("#post-Modal")
+let closeAddPostModal=document.querySelector("#closeAddPost-modal")
+let declineModal = document.querySelector('#decline-modal')
+addpost.onclick=()=>{
+    postModal.classList.remove('hidden')
+}
+closeAddPostModal.onclick=()=>{
+    postModal.classList.add('hidden')
+}
+declineModal.onclick=()=>{
+    postModal.classList.add('hidden')
+}

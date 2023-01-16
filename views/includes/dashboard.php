@@ -23,8 +23,6 @@
             <li><a href="posts"><i class="fa-solid fa-blog"></i><span  class="words">Posts</span></a></li>
             <li><a href="users"><i class="fa-solid fa-users"></i><span  class="words">Users</span></a></li>
             <li><a href="Profile"><i class="fa-solid fa-address-card"></i><span class="words">Profile</span></a></li>
-        </ul>
-        <ul class="list-content2">
             <li><a class="logout" href="logout"><i class="fa-solid fa-right-from-bracket"></i><span class="words">logout</span></a></li>
         </ul>
     </div>

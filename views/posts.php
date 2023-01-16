@@ -1,5 +1,10 @@
 <?php
 require_once('includes/dashboard.php');
+
+$post=new PostsController();
+
+$data = $post->getAllPosts();
+
 ?>
 <header class="dashboard-header">
     <nav class="nav-bar flex justify-between">
@@ -22,6 +27,9 @@ require_once('includes/dashboard.php');
     </nav>
 </header>
 <section class="my-section mt-20">
+    <div class="flex justify-end">
+    <button type="button" class="flex  items-center text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"><i class="fa-solid fa-plus mr-2"></i> <span>Add Post</span></button>
+    </div>
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
@@ -30,13 +38,16 @@ require_once('includes/dashboard.php');
                     Tilte
                 </th>
                 <th scope="col" class="text-bold px-6 py-3">
-                    content
+                    Content
+                </th>
+                <th scope="col" class="text-bold px-6 py-3">
+                    Picture
                 </th>
                 <th scope="col" class="text-bold px-6 py-3">
                     Category
                 </th>
                 <th scope="col" class="text-bold px-6 py-3">
-                    overview
+                    Overview
                 </th>
                 <th scope="col" class="text-bold text-center px-6 py-3">
                     Action
@@ -44,18 +55,22 @@ require_once('includes/dashboard.php');
             </tr>
         </thead>
         <tbody>
+            <?php foreach($data as $post){?>
             <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                 <td class="px-6 py-4">
-                    Apple 
+                   <?php echo $post['title']?>
                 </td>
                 <td class="px-6 py-4">
-                    Sliver
+                   <?php echo $post['content']?>
                 </td>
                 <td class="px-6 py-4">
-                    Laptop
+                   <?php echo '<img style="width:100px;height:80px" src="./public/images/'.$post['picture'].'" alt="">' ?>
                 </td>
                 <td class="px-6 py-4">
-                    $2999
+                   <?php echo $post['post_category']?>
+                </td>
+                <td class="px-6 py-4">
+                <button type="button" class="text-white bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 shadow-lg shadow-pink-500/50 dark:shadow-lg dark:shadow-pink-80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">overview</button>
                 </td>
                 <td class="px-6 py-4 text-center">
                     <div class="flex justify-evenly">
@@ -68,7 +83,7 @@ require_once('includes/dashboard.php');
                     </div>
                 </td>
             </tr>
-           
+           <?php } ?>
         </tbody>
     </table>
 </div>

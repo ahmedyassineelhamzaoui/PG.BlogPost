@@ -1,0 +1,119 @@
+body{
+    /* overflow-y: hidden !important; */
+    background-color:rgb(216, 216, 218) ;
+ }
+ /* login page */
+.login-page {
+    background-image: url('./images/social1.jpg');
+    background-size: cover;
+    background-attachment: center !important;
+}
+/* dahsboard page */
+/*dashboard-sidebar*/
+.side-bar{
+    position: fixed;
+    width:70px;
+    height: 100vh;
+    background-color: rgb(255, 255, 255);
+    top:0;
+    left:0;
+    transition: .5s;
+    z-index:10;
+}
+.side-bar .sidebar-content{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+   
+.side-bar .sidebar-content .icon{
+    padding:1px 6px;
+    background-color: #0ea5e9;
+    cursor: pointer;
+    font-size: 18px;
+    color: azure;
+    position:absolute;
+    top:12%;
+
+}
+.side-bar .sidebar-content .icon-right{
+    border-radius: 0 49% 49% 0;
+    right: -20%;
+}
+.side-bar .sidebar-content .icon-left{
+    border-radius:  49% 0 0 49% ;
+    right: 0%;
+}
+.profile-image{
+    margin-top: 100px;
+    display: flex;
+    width:100%;
+    justify-content: center;
+}
+.profile-image img{
+    width:50px;
+    height: 50px;
+}
+.user-connect{
+    width:100%;
+    text-align: center;
+}
+.side-bar .sidebar-content .list-content1{
+    margin-top: 1em;
+ }
+ .side-bar .sidebar-content .list-content2{
+    margin-top: 200%;
+ }
+
+.side-bar .sidebar-content  li a{
+    margin-top:10px;
+    background-color:#0ea5e9;
+    width:90%;
+    margin-left: 5%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 40px;
+    border-radius: 5px;
+    color:whitesmoke;
+    font-weight: bold;
+    transition:.5s;
+}
+
+.side-bar .sidebar-content a:hover{
+    color:blue;
+}
+.side-bar .sidebar-content span{
+    width:100px;
+}
+
+/* dashboard-header */
+.dashboard-header{
+    position:fixed;
+    width:100%;
+    background-color: rgb(255, 255, 255);
+    height:60px;
+    z-index:0;
+    top: 0;
+}
+.dashboard-header .nav-bar{
+    margin-right: 10px;
+    align-items: center;
+    height:100%;
+    margin-left: 80px;
+}
+.dashboard-header .nav-bar .menu-bar{
+    display: none;
+}
+.dashboard-header .nav-bar .menu-bar i{
+    font-weight: bolder;
+    font-size: 25px;
+    cursor: pointer;
+}
+/* my-section */
+.my-section{
+    width:calc(100%-270px);
+    margin-left: 80px;
+    margin-right: 20px;
+    transition: .4s;
+}

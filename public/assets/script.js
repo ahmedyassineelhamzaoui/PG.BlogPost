@@ -49,7 +49,11 @@ let declineCategoryModal=document.querySelector('#declineCategory-modal')
 let closeAddCategoryModal=document.querySelector('#closeAddCategory-modal')
 if(addCategory){
 addCategory.onclick=()=>{
+    document.querySelector("#update-category").style.display = 'none';
+    document.querySelector("#add").style.display = 'block';
     categoryModal.classList.remove('hidden')
+    document.querySelector("#my-field").style.display="block"
+    document.querySelector('#drop-down').style.display="none"
 }
 closeAddCategoryModal.onclick=()=>{
     categoryModal.classList.add('hidden')
@@ -57,4 +61,24 @@ closeAddCategoryModal.onclick=()=>{
 declineCategoryModal.onclick=()=>{
     categoryModal.classList.add('hidden')
 }
+}
+// alert
+myAlert=document.querySelector("#my-alert")
+closeAlert=document.querySelector("#close-alert")
+if(closeAlert){
+    closeAlert.onclick=()=>{
+        myAlert.classList.add('hidden');
+    }
+}
+document.querySelector("#update-category").style.display = 'none';
+document.querySelector('#drop-down').style.display="none"
+function editCategory(name,id){
+    categoryModal.classList.remove('hidden');
+    document.querySelector("#update-category").style.display = 'block';
+    document.querySelector("#add").style.display = 'none';
+    document.querySelector("#dorpDown-category").value = name;
+    document.querySelector("#category-id").value=id
+    document.querySelector("#my-field").style.display="none"
+    document.querySelector('#drop-down').style.display="block"
+    console.log(name,id)
 }

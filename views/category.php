@@ -1,6 +1,23 @@
 <?php require_once('includes/dashboard.php');
-$post = new CategoryController();
-$data = $post->getAllCategorys();?>
+$category = new CategoryController();
+$data = $category->getAllCategorys();
+$mydata = $category->GetUniqueCategory();
+
+if (isset($_POST['add'])) {
+    $newCategorie = new CategoryController();
+    $newCategorie->addCategory();
+}
+if (isset($_POST["delete-category"])) {
+    $newCategorie = new CategoryController();
+    $newCategorie->deleteCategory();
+}
+if (isset($_POST["update-category"])) {
+    $newCategorie = new CategoryController();
+    $newCategorie->updateCategory();
+}
+
+
+?>
 <header class="dashboard-header">
     <nav class="nav-bar flex justify-between">
         <div class="search-bar w-80">
@@ -27,7 +44,8 @@ $data = $post->getAllCategorys();?>
     <div class="flex justify-end">
         <button id="add-category" type="button" data-modal-target="staticModal" data-modal-toggle="staticModal" class="flex  items-center text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"><i class="fa-solid fa-plus mr-2"></i> <span>Add Category</span></button>
     </div>
-   <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <?php include('includes/alerts.php'); ?>
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
@@ -43,23 +61,24 @@ $data = $post->getAllCategorys();?>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach($data as $val){?>
+                <?php foreach ($data as $val) { ?>
                     <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                         <td class="text-center px-6 py-4">
-                          <?php echo $val['id_category']?>
+                            <?php echo $val['id_category'] ?>
                         </td>
-                        <td  class="text-center px-6 py-4">
-                        <?php echo $val['name']?>
+                        <td class="text-center px-6 py-4">
+                            <?php echo $val['name'] ?>
                         </td>
-                        <td  class=" px-6 py-4 ">
+                        <td class=" px-6 py-4 ">
                             <form method="post">
+                                <input type="hidden" name="category-id" value="<?= $val["id_category"] ?>">
                                 <div class="flex justify-center w-full">
-                                    <button type="button" class="mr-2">
+                                    <button name="opencategorys" onclick="editCategory('<?= $val['name'] ?>',<?= $val['id_category'] ?>);" type="button" class="mr-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 cursor-pointer text-green-400">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
                                         </svg>
                                     </button>
-                                    <button type="button">
+                                    <button type="submit" name="delete-category">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 cursor-pointer text-red-400">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
                                         </svg>
@@ -68,7 +87,7 @@ $data = $post->getAllCategorys();?>
                             </form>
                         </td>
                     </tr>
-                    <?php } ?>
+                <?php } ?>
             </tbody>
         </table>
     </div>
@@ -92,19 +111,33 @@ $data = $post->getAllCategorys();?>
                 </button>
             </div>
             <!-- Modal body -->
-            <form action="add" method="post">
-            <div class="mx-4 mt-6">
-                <div>
-                    <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">name of category</label>
-                    <input type="text" name="category_name"  id="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Name of category" required>
-                </div>
-            </div>
+            <form method="post">
+            <input id="category-id" type="hidden" name="category-id" >
 
-            <!-- Modal footer -->
-            <div class="flex items-center justify-end p-4 mt-4 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                <button  type="submit" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Create</button>
-                <button id="declineCategory-modal" type="button" class="text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Decline</button>
-            </div>
+            <div id="my-field" class="mx-4 mt-6">
+                    <div>
+                        <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">name of category</label>
+                        <input type="text" name="category_name" id="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Name of category">
+                    </div>
+                </div>
+                <div id="drop-down" class="mx-4 mt-6">
+                    <div>
+                        <select name="categorySelect_name" id="dorpDown-category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <?php foreach ($mydata as $val) { ?>
+                                <option value="<?= $val["name"] ?>"><?= $val["name"] ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="p-4 mt-4 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                    <div class="flex justify-end items-center ">
+                        <button id="update-category" name="update-category" type="submit" class="text-gray-900 bg-gradient-to-r from-teal-200 to-lime-200 hover:bg-gradient-to-l  hover:from-teal-200 hover:to-lime-200 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-teal-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2">Update</button>
+                        <button id="add" name="add" type="submit" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2">Create</button>
+                        <button id="declineCategory-modal" type="button" class="text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center  ">Decline</button>
+                    </div>
+                </div>
             </form>
         </div>
     </div>

@@ -31,6 +31,7 @@ let addpost = document.querySelector("#add-post")
 let postModal = document.querySelector("#post-Modal")
 let closeAddPostModal=document.querySelector("#closeAddPost-modal")
 let declineModal = document.querySelector('#decline-modal')
+if(addpost){
 addpost.onclick=()=>{
     postModal.classList.remove('hidden')
 }
@@ -39,4 +40,21 @@ closeAddPostModal.onclick=()=>{
 }
 declineModal.onclick=()=>{
     postModal.classList.add('hidden')
+}
+}
+// category
+let categoryModal=document.querySelector("#category-Modal")
+let addCategory=document.querySelector("#add-category")
+let declineCategoryModal=document.querySelector('#declineCategory-modal')
+let closeAddCategoryModal=document.querySelector('#closeAddCategory-modal')
+if(addCategory){
+addCategory.onclick=()=>{
+    categoryModal.classList.remove('hidden')
+}
+closeAddCategoryModal.onclick=()=>{
+    categoryModal.classList.add('hidden')
+}
+declineCategoryModal.onclick=()=>{
+    categoryModal.classList.add('hidden')
+}
 }

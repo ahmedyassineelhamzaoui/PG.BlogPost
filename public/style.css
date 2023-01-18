@@ -19,6 +19,7 @@ body{
     left:0;
     transition: .5s;
     z-index:10;
+    box-shadow: 2px 0px 10px 1px  rgb(161, 160, 160);
 }
 .side-bar .sidebar-content{
   display: flex;
@@ -113,4 +114,20 @@ body{
     margin-left: 80px;
     margin-right: 20px;
     transition: .4s;
+}
+.page-notfound{
+    background-image: url('images/pagenotfound.png');
+    background-size: cover;
+}
+.page-notfound .notfound{
+   font-size: 200px !important;
+   color:bisque
+}
+@media (max-width:890px){
+    .page-notfound{
+        flex-wrap: wrap !important;
+    }
+    .alone{
+        font-size: 25px !important;
+    }
 }

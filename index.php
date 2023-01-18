@@ -6,9 +6,7 @@ require_once './controllers/HomeController.php';
 $home = new HomeController();
 
 
-$pages = ['home','logout','login','register','posts','add'];
-
-
+$pages = ['home','logout','login','register','posts','add','category'];
 
 if(isset($_GET['page'])){
     if(in_array($_GET['page'],$pages)){
@@ -20,7 +18,5 @@ if(isset($_GET['page'])){
 }else{
     $home->index('home');
 }
-
 require_once './views/includes/footer.php';
-
 ?>

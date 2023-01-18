@@ -19,7 +19,7 @@
             <p>Admin<br>connect</p>
         </div>
         <ul class="list-content1 ">
-            <li><a href="#"><i class="fa-solid fa-table-columns"></i><span class="words">Dashboard</span></a></li>
+            <li><a href="category"><i class="fa-solid fa-table-columns"></i><span class="words">Category</span></a></li>
             <li><a href="posts"><i class="fa-solid fa-blog"></i><span  class="words">Posts</span></a></li>
             <li><a href="users"><i class="fa-solid fa-users"></i><span  class="words">Users</span></a></li>
             <li><a href="Profile"><i class="fa-solid fa-address-card"></i><span class="words">Profile</span></a></li>

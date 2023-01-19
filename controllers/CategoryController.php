@@ -34,7 +34,7 @@ class CategoryController{
 			$data=array($_POST["categorySelect_name"],$_POST["category-id"]);
 			$result=Category::update($data);
 			if($result==='ok'){
-				Session::set('success','Category updated succesdfuly');
+				Session::set('success','Category has been updated succesdfuly');
 				header('location:category');
 			}else{
 				echo $result;

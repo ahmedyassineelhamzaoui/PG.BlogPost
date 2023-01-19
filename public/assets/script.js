@@ -70,8 +70,12 @@ if(closeAlert){
         myAlert.classList.add('hidden');
     }
 }
-document.querySelector("#update-category").style.display = 'none';
-document.querySelector('#drop-down').style.display="none"
+if(document.querySelector("#update-category")){
+    document.querySelector("#update-category").style.display = 'none';
+
+}
+if(document.querySelector('#drop-down')){
+    document.querySelector('#drop-down').style.display="none"}
 function editCategory(name,id){
     categoryModal.classList.remove('hidden');
     document.querySelector("#update-category").style.display = 'block';
@@ -81,4 +85,22 @@ function editCategory(name,id){
     document.querySelector("#my-field").style.display="none"
     document.querySelector('#drop-down').style.display="block"
     console.log(name,id)
+}
+function editPost(id,title,content,name,image){
+    document.querySelector('#update-Modal').classList.remove("hidden");
+    document.querySelector('#title').value=title
+    document.querySelector('#posts-category').value=name;
+    document.querySelector("#image-up").setAttribute('src','public/images/'+image);
+    document.querySelector("#editor").value=content
+    document.querySelector("#post-id").value=id
+}
+if(document.querySelector('#closeUpdatePost-modal')){
+    document.querySelector('#closeUpdatePost-modal').onclick=()=>{
+    document.querySelector('#update-Modal').classList.add("hidden");
+    }
+}
+if(document.querySelector('#declineUpdate-modal')){
+    document.querySelector('#declineUpdate-modal').onclick=()=>{
+    document.querySelector('#update-Modal').classList.add("hidden");
+    }
 }

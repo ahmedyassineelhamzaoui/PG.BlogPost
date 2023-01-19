@@ -8,7 +8,7 @@ class Category{
 		$stmt = null;
 	}
 	static public function getUnique(){
-		$stmt = DB::connect()->prepare('SELECT DISTINCT name FROM category');
+		$stmt = DB::connect()->prepare('SELECT DISTINCT  id_category,name FROM category GROUP BY name');
 		$stmt->execute();
 		return $stmt->fetchAll();
 		$stmt = null;

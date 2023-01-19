@@ -7,7 +7,7 @@ $home = new HomeController();
 
 
 $pages = ['home','logout','login','register','posts','add','category'];
-
+if(isset($_SESSION["logged"]) && $_SESSION["logged"]==true){
 if(isset($_GET['page'])){
     if(in_array($_GET['page'],$pages)){
         $page = $_GET['page'];
@@ -19,4 +19,9 @@ if(isset($_GET['page'])){
     $home->index('home');
 }
 require_once './views/includes/footer.php';
+}else if(isset($_GET['page']) && $_GET['page']==='register'){
+    $home->index('register');
+}else{
+    $home->index('login');
+}
 ?>

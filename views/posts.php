@@ -16,7 +16,7 @@ if(isset($_POST['update-post'])){
     $post->updatePosts();
 }
 ?>
-<!-- <header class="dashboard-header">
+<header class="dashboard-header">
     <nav class="nav-bar flex justify-between">
         <div class="search-bar w-80">
             <form>
@@ -36,7 +36,7 @@ if(isset($_POST['update-post'])){
             <i class="w-6 h-6 fa-solid fa-bars"></i>
         </div>
     </nav>
-</header> -->
+</header>
 <section class="my-section mt-20">
     <div class="flex justify-end">
         <button id="add-post" type="button" data-modal-target="staticModal" data-modal-toggle="staticModal" class="flex  items-center text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"><i class="fa-solid fa-plus mr-2"></i> <span>Add Post</span></button>

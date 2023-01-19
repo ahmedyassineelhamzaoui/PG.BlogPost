@@ -9,7 +9,6 @@ if(isset($_POST["add-post"])){
     $post ->addPost();
 }
 ?>
-<main id="dashboard-page">
     <?php require_once('includes/dashboard.php') ?>
     <header class="dashboard-header">
         <nav class="nav-bar flex justify-between">

@@ -36,6 +36,10 @@
         }
     }
    }
+   public function getAllUsers(){
+    $result=User::getAll();
+    
+   } 
    }
 
 ?>

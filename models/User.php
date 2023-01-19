@@ -19,5 +19,11 @@ class User{
             echo 'Erruer'/$e->getMessage();
         }
     }
+    static public function getAll(){
+       $stmt=DB::connect()->prepare('SELECT * FROM users');
+       $stmt->execute();
+       $result=$stmt->fetchAll(PDO::FETCH_ASSOC);
+       return $result;
+    }
 }
 ?>

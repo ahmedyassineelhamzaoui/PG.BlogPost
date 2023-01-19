@@ -1,7 +1,11 @@
 <?php
 require_once('includes/dashboard.php');
 $users=new UsersController();
-$users->getAllUsers();
+$mydata=$users->getAllUsers();
+if(isset($_POST['delete-user'])){
+    $users=new UsersController();
+    $users->deleteUser();
+}
 ?>
 <header class="dashboard-header">
     <nav class="nav-bar flex justify-between">
@@ -25,6 +29,7 @@ $users->getAllUsers();
     </nav>
 </header>
 <section class="my-section mt-20">
+    <?php include('includes/alerts.php')?>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
@@ -44,15 +49,21 @@ $users->getAllUsers();
                 </tr>
             </thead>
             <tbody>
+                <?php foreach($mydata as $user){?>
                     <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                         <td class="px-6 py-4">
+                            <?= $user['name']?>
                         </td>
                         <td class="px-6 py-4">
+                        <?= $user['email']?>
+
                         </td>
                         <td class="px-6 py-4">
+                        <?= $user['password']?>
                         </td>
                         <td class="px-6 py-4 text-center">
                             <form method="post">
+                            <input type="hidden" name="user-id" value="<?= $user['id']?>">
                                 <div class="flex">
                                     <button name="delete-user" type="submit">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 cursor-pointer text-red-400">
@@ -63,6 +74,7 @@ $users->getAllUsers();
                             </form>
                         </td>
                     </tr>
+                    <?php } ?>
             </tbody>
         </table>
     </div>

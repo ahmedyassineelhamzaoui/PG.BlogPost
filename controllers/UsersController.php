@@ -37,9 +37,21 @@
     }
    }
    public function getAllUsers(){
-    $result=User::getAll();
-    
+    $users=User::getAll();
+    return $users;
    } 
+   public function deleteUser(){
+       if(isset($_POST['delete-user'])){
+        $data=array($_POST['user-id']);
+        $result=User::delete($data);
+        if($result=='ok'){
+            Session::set('success','User has ben deleted successufly');
+            header('location:users');
+        }else{
+            Session::set('info','something went wrong');
+            header('location:users');
+        }
+       }
    }
-
+}
 ?>

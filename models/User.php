@@ -24,6 +24,17 @@ class User{
        $stmt->execute();
        $result=$stmt->fetchAll(PDO::FETCH_ASSOC);
        return $result;
+       $stmt=null;
     }
+    static public function delete($data){
+        $stmt= DB::connect()->prepare('DELETE FROM users WHERE id=?');
+        if($stmt->execute($data)){
+            return 'ok';
+        }else{
+            return 'error';
+        }
+
+    }
+
 }
 ?>

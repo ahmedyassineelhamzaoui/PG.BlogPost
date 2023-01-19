@@ -8,24 +8,29 @@ let BlogText=document.querySelector(".Blog-text")
 words.forEach(word=>{
     word.style.display="none";
 })
-iconLeft.onclick=()=>{
-    iconLeft.classList.add("hidden");
-    iconRight.classList.remove("hidden")
-    sideBar.style.width="70px";
-    words.forEach(word=>{
-        word.style.display="none";
-    })
-    BlogText.style.display="none"
+if(iconLeft){
+    iconLeft.onclick=()=>{
+        iconLeft.classList.add("hidden");
+        iconRight.classList.remove("hidden")
+        sideBar.style.width="70px";
+        words.forEach(word=>{
+            word.style.display="none";
+        })
+        BlogText.style.display="none"
+    }
 }
-iconRight.onclick=()=>{
-    iconRight.classList.add("hidden")
-    iconLeft.classList.remove("hidden")
-    sideBar.style.width="270px";
-    words.forEach(word=>{
-        word.style.display="block";
-    })
-    BlogText.style.display="block"
+if(iconRight){
+    iconRight.onclick=()=>{
+        iconRight.classList.add("hidden")
+        iconLeft.classList.remove("hidden")
+        sideBar.style.width="270px";
+        words.forEach(word=>{
+            word.style.display="block";
+        })
+        BlogText.style.display="block"
+    }
 }
+
 // button addpost
 let addpost = document.querySelector("#add-post")
 let postModal = document.querySelector("#post-Modal")
@@ -62,7 +67,7 @@ declineCategoryModal.onclick=()=>{
     categoryModal.classList.add('hidden')
 }
 }
-// alert
+// alert success
 myAlert=document.querySelector("#my-alert")
 closeAlert=document.querySelector("#close-alert")
 if(closeAlert){
@@ -70,10 +75,20 @@ if(closeAlert){
         myAlert.classList.add('hidden');
     }
 }
+//  alert danger
+mydangerAlert=document.querySelector("#my-Dangeralert");
+closeDangerAlert=document.querySelector("#close-Dangeralert");
+if(closeDangerAlert){
+    closeDangerAlert.onclick=()=>{
+        mydangerAlert.classList.add('hidden');
+    }
+}
 if(document.querySelector("#update-category")){
     document.querySelector("#update-category").style.display = 'none';
 
 }
+
+
 if(document.querySelector('#drop-down')){
     document.querySelector('#drop-down').style.display="none"}
 function editCategory(name,id){

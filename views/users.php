@@ -1,16 +1,23 @@
 <?php
 require_once('includes/dashboard.php');
-$users=new UsersController();
-$mydata=$users->getAllUsers();
-if(isset($_POST['delete-user'])){
-    $users=new UsersController();
+$users = new UsersController();
+$mydata = $users->getAllUsers();
+if (isset($_POST['delete-user'])) {
+    $users = new UsersController();
     $users->deleteUser();
 }
+$postNumber = new PostsController();
+$resultPosts = $postNumber->AllPosts();
+
+$categoryNumber = new CategoryController();
+$resultCategory = $categoryNumber->AllCategorys();
+$bestCategory = $categoryNumber->getBestCategory()['name'];
+$resultUsers = $users->AllUsers();
 ?>
 <header class="dashboard-header">
     <nav class="nav-bar flex justify-between">
         <div class="search-bar w-80">
-            <form>
+            <form method="post">
                 <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                 <div class="relative">
                     <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -19,7 +26,7 @@ if(isset($_POST['delete-user'])){
                         </svg>
                     </div>
                     <input type="search" id="default-search" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search" required>
-                    <button type="submit" class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+                    <button type="submit" name="user-search" class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
                 </div>
             </form>
         </div>
@@ -28,9 +35,50 @@ if(isset($_POST['delete-user'])){
         </div>
     </nav>
 </header>
-<section class="my-section mt-20">
-    <?php include('includes/alerts.php')?>
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+<section class="my-section mt-20 flex justify-center">
+    <div class="w-4/5">
+        <div class=" mb-4  w-full grid row gap-4  xl:grid-cols-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ">
+            <div class='bg-white shadow h-24 rounded flex justify-around items-center font-bold'>
+                <div class="text-center">
+                    <p>Users</p>
+                    <i class="fa-solid fa-users"></i>
+                </div>
+                <div>
+                    <p><?= $resultUsers ?></p>
+                </div>
+            </div>
+            <div class='bg-white shadow h-24  rounded flex justify-around font-bold  items-center'>
+                <div class="text-center">
+                    <p>Posts</p>
+                    <i class=" fa-solid fa-blog"></i>
+                </div>
+                <div>
+                    <p><?= $resultPosts ?></p>
+                </div>
+            </div>
+            <div class='bg-white shadow h-24  rounded flex justify-around font-bold items-center  '>
+                <div class="text-center">
+                    <p>Categorys</p>
+                    <i class="fa-solid fa-braille"></i>
+                </div>
+                <div>
+                    <p><?= $resultCategory ?></p>
+                </div>
+            </div>
+            <div class='card bg-white shadow h-24  rounded flex justify-around font-bold items-center'>
+                <div class="text-center">
+                    <p>Best Category</p>
+                    <i class="fa-solid fa-fire"></i>
+                </div>
+                <div>
+                    <p>
+                        <?= $bestCategory ?>
+                    </p>
+                </div>
+            </div>
+        </div>
+    <?php include('includes/alerts.php') ?>
+    <div class="mt-2 relative overflow-x-auto shadow-md sm:rounded-lg">
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
@@ -49,21 +97,20 @@ if(isset($_POST['delete-user'])){
                 </tr>
             </thead>
             <tbody>
-                <?php foreach($mydata as $user){?>
+                <?php foreach ($mydata as $user) { ?>
                     <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                         <td class="px-6 py-4">
-                            <?= $user['name']?>
+                            <?= $user['name'] ?>
                         </td>
                         <td class="px-6 py-4">
-                        <?= $user['email']?>
-
+                            <?= $user['email'] ?>
                         </td>
                         <td class="px-6 py-4">
-                        <?= $user['password']?>
+                            <?= $user['password'] ?>
                         </td>
                         <td class="px-6 py-4 text-center">
                             <form method="post">
-                            <input type="hidden" name="user-id" value="<?= $user['id']?>">
+                                <input type="hidden" name="user-id" value="<?= $user['id'] ?>">
                                 <div class="flex">
                                     <button name="delete-user" type="submit">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 cursor-pointer text-red-400">
@@ -74,10 +121,10 @@ if(isset($_POST['delete-user'])){
                             </form>
                         </td>
                     </tr>
-                    <?php } ?>
+                <?php } ?>
             </tbody>
         </table>
     </div>
-
+    </div>
 </section>
 </main>

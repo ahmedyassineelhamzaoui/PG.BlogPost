@@ -6,22 +6,23 @@ require_once './controllers/HomeController.php';
 $home = new HomeController();
 
 
-$pages = ['home','logout','login','register','posts','add','category','users'];
-if(isset($_SESSION["logged"]) && $_SESSION["logged"]==true){
-if(isset($_GET['page'])){
-    if(in_array($_GET['page'],$pages)){
-        $page = $_GET['page'];
-        $home->index($page);
-    }else{
-        include('views/includes/404.php');
+$pages = ['home', 'logout', 'login', 'register', 'posts', 'add', 'category', 'users', 'forget'];
+if (isset($_SESSION["logged"]) && $_SESSION["logged"] == true) {
+    if (isset($_GET['page'])) {
+        if (in_array($_GET['page'], $pages)) {
+            $page = $_GET['page'];
+            $home->index($page);
+        } else {
+            include('views/includes/404.php');
+        }
+    } else {
+        $home->index('home');
     }
-}else{
-    $home->index('home');
-}
-require_once './views/includes/footer.php';
-}else if(isset($_GET['page']) && $_GET['page']==='register'){
+    require_once './views/includes/footer.php';
+} else if (isset($_GET['page']) && $_GET['page'] === 'register') {
     $home->index('register');
-}else{
+} else if (isset($_GET['page']) && $_GET['page'] === 'forget') {
+    $home->index('forget');
+} else {
     $home->index('login');
 }
-?>

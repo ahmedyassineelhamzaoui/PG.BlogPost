@@ -34,6 +34,11 @@ class Post {
 		}
 		$stmt=null;
 	}
+	static public function GetNumberRow(){
+		$stmt=DB::connect()->prepare('SELECT * FROM post ');
+		$stmt->execute();
+		return $stmt->rowCount();
+	}
 }
 
 

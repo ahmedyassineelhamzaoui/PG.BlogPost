@@ -35,6 +35,17 @@ class User{
         }
 
     }
-
+    static public function getAllUsers(){
+        $stmt=DB::connect()->prepare('SELECT * FROM users ');
+        $stmt->execute();
+        return $stmt->rowCount();
+    }
+    static public function GetSeachedUser($data){
+        if(isset($_POST['user-search'])){
+            $stmt=DB::connect()->prepare('SELECT * FROM user WHERE name like ? OR email like ?');
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+    }
 }
 ?>

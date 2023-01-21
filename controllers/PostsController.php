@@ -53,6 +53,10 @@ class PostsController{
 			}
 		}
 	}
+	public function AllPosts(){
+	  $result=Post::GetNumberRow();
+      return $result;
+	}
 }
 
 ?>

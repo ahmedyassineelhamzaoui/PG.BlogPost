@@ -7,6 +7,9 @@ body{
     background-image: url('./images/social1.jpg');
     background-size: cover;
     background-attachment: center !important;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
 }
 /* dahsboard page */
 /*dashboard-sidebar*/
@@ -130,4 +133,7 @@ body{
     .alone{
         font-size: 25px !important;
     }
+}
+.my-width{
+    width:20% !important;
 }

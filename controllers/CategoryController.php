@@ -45,6 +45,14 @@ class CategoryController{
 	    $result = Category::getUnique();
 		return $result;
 	}
+	public function AllCategorys(){
+		$result= Category::getAllCategory();
+		return $result;
+	}
+	public function getBestCategory(){
+		$result=Category::BestCategory();
+		return $result;
+	}
 
 }
 

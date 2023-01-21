@@ -37,7 +37,20 @@ class Category{
 		}else{
 			return "error";
 		}
-
+	}
+	static public function getAllCategory(){
+		$stmt= DB::connect()->prepare('SELECT * FROM category');
+		$stmt->execute();
+		return $stmt->rowCount();
+	}
+    static public function BestCategory(){
+		$stmt=DB::connect()->prepare('SELECT name
+		FROM (SELECT name, COUNT(*) as co FROM category GROUP BY name) sub
+		JOIN (SELECT MAX(co) as max_co FROM (SELECT name,COUNT(*) as co FROM category GROUP BY name) as sub) max_table
+		ON sub.co = max_table.max_co;
+		');
+		$stmt->execute();
+		return $stmt->fetch(PDO::FETCH_ASSOC);
 	}
 }
 

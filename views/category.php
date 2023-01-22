@@ -18,7 +18,12 @@ if(isset($_POST["search"])){
 }else{
     $data = $category->getAllCategorys();
 }
-
+$users=new UsersController();
+$postNumber = new PostsController();
+$resultPosts = $postNumber->AllPosts();
+$resultCategory = $category->AllCategorys();
+$bestCategory = $category->getBestCategory()['name'];
+$resultUsers = $users->AllUsers();
 ?>
 <header class="dashboard-header">
     <nav class="nav-bar flex justify-between">
@@ -42,7 +47,48 @@ if(isset($_POST["search"])){
         </div>
     </nav>
 </header>
-<section class="my-section mt-20">
+<section class="my-section mt-20 flex justify-center">
+    <div class="w-4/5">
+    <div class=" mb-4  w-full grid row gap-4  xl:grid-cols-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ">
+            <div class='bg-white shadow h-24 rounded flex justify-around items-center font-bold'>
+                <div class="text-center">
+                    <p>Users</p>
+                    <i class="fa-solid fa-users"></i>
+                </div>
+                <div>
+                    <p><?= $resultUsers ?></p>
+                </div>
+            </div>
+            <div class='bg-white shadow h-24  rounded flex justify-around font-bold  items-center'>
+                <div class="text-center">
+                    <p>Posts</p>
+                    <i class=" fa-solid fa-blog"></i>
+                </div>
+                <div>
+                    <p><?= $resultPosts ?></p>
+                </div>
+            </div>
+            <div class='bg-white shadow h-24  rounded flex justify-around font-bold items-center  '>
+                <div class="text-center">
+                    <p>Categorys</p>
+                    <i class="fa-solid fa-braille"></i>
+                </div>
+                <div>
+                    <p><?= $resultCategory ?></p>
+                </div>
+            </div>
+            <div class='card bg-white shadow h-24  rounded flex justify-around font-bold items-center'>
+                <div class="text-center">
+                    <p>Best Category</p>
+                    <i class="fa-solid fa-fire"></i>
+                </div>
+                <div>
+                    <p>
+                        <?= $bestCategory ?>
+                    </p>
+                </div>
+            </div>
+        </div>
     <div class="flex justify-end">
         <button id="add-category" type="button" data-modal-target="staticModal" data-modal-toggle="staticModal" class="flex  items-center text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"><i class="fa-solid fa-plus mr-2"></i> <span>Add Category</span></button>
     </div>
@@ -101,6 +147,7 @@ if(isset($_POST["search"])){
                 <?php } }?>
             </tbody>
         </table>
+    </div>
     </div>
 </section>
 </main>

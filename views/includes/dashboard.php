@@ -1,11 +1,6 @@
-<?php
-// $data = new PostsController();
-// $employes = $data->getAllPosts();
-// print_r($employes);
-?>
 <main id="dashboard-page">
 
-<aside class="side-bar">
+<aside class="side-bar z-20">
     <div class="sidebar-content">
         <ul class="relative top-2 left-2">
             <li class=" flex justify-start items-center "><img class="w-10 h-10 " src="./public/images/la-lettre-b.png" alt=""><span class="hidden Blog-text ml-2 font-bold text-md text-indigo-700">BlogPost</span></li>

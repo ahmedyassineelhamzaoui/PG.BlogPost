@@ -42,9 +42,14 @@ class User{
     }
     static public function GetSeachedUser($data){
         if(isset($_POST['user-search'])){
-            $stmt=DB::connect()->prepare('SELECT * FROM user WHERE name like ? OR email like ?');
-            $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $stmt=DB::connect()->prepare('SELECT * FROM users WHERE name like ? OR email like ?');
+            $stmt->execute($data);
+            if($stmt->rowCount()==0){
+                return 0;
+            }else{
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            }
+            
         }
     }
 }

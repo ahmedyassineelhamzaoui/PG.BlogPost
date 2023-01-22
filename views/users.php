@@ -1,7 +1,6 @@
 <?php
 require_once('includes/dashboard.php');
 $users = new UsersController();
-$mydata = $users->getAllUsers();
 if (isset($_POST['delete-user'])) {
     $users = new UsersController();
     $users->deleteUser();
@@ -13,6 +12,11 @@ $categoryNumber = new CategoryController();
 $resultCategory = $categoryNumber->AllCategorys();
 $bestCategory = $categoryNumber->getBestCategory()['name'];
 $resultUsers = $users->AllUsers();
+if(isset($_POST['user-search'])){
+    $mydata=$users->UserSearch();
+}else{
+    $mydata = $users->getAllUsers();
+}
 ?>
 <header class="dashboard-header">
     <nav class="nav-bar flex justify-between">
@@ -25,7 +29,7 @@ $resultUsers = $users->AllUsers();
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                         </svg>
                     </div>
-                    <input type="search" id="default-search" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search" required>
+                    <input type="search" name="input-search" id="default-search" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search" required>
                     <button type="submit" name="user-search" class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
                 </div>
             </form>
@@ -97,7 +101,17 @@ $resultUsers = $users->AllUsers();
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($mydata as $user) { ?>
+                <?php
+                if($mydata==0){
+                    ?>
+                    <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                            <th colspan="4" class="text-center">
+                            ther is no data to show
+                            </th>
+                    </tr>
+                    <?php
+                }else{
+                 foreach ($mydata as $user) { ?>
                     <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                         <td class="px-6 py-4">
                             <?= $user['name'] ?>
@@ -121,7 +135,7 @@ $resultUsers = $users->AllUsers();
                             </form>
                         </td>
                     </tr>
-                <?php } ?>
+                <?php }} ?>
             </tbody>
         </table>
     </div>

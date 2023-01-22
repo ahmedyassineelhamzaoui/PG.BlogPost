@@ -97,5 +97,11 @@ class UsersController
         $result=User::getAllUsers();
         return $result;
     }
-    public function
+    public function UserSearch(){
+        if(isset($_POST['user-search'])){
+            $data=array('%'.$_POST["input-search"].'%','%'.$_POST["input-search"].'%');
+            $result =User::GetSeachedUser($data);
+            return $result;
+        }
+    }
 }

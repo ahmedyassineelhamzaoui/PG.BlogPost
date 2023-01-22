@@ -52,6 +52,16 @@ class Category{
 		$stmt->execute();
 		return $stmt->fetch(PDO::FETCH_ASSOC);
 	}
+	static public function GetSearchCategory($data){
+      $stmt=DB::connect()->prepare('SELECT * FROM category WHERE name like ? OR id_category like ?');
+	  $stmt->execute($data);
+	  if($stmt->rowCount()==0){
+		return 0;
+	  }else{
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	  }
+	  $stmt=null;
+	}
 }
 
 

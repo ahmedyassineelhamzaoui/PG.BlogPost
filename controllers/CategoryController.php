@@ -53,7 +53,13 @@ class CategoryController{
 		$result=Category::BestCategory();
 		return $result;
 	}
-
+    public function SearchPosts(){
+		if(isset($_POST['search'])){
+			$data=array('%'.$_POST['input-search'].'%','%'.$_POST['input-search'].'%');
+			$result=Category::GetSearchCategory($data);
+			return $result;
+		}
+	}
 }
 
 ?>

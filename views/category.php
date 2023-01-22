@@ -1,8 +1,6 @@
 <?php require_once('includes/dashboard.php');
 $category = new CategoryController();
-$data = $category->getAllCategorys();
 $mydata = $category->GetUniqueCategory();
-
 if (isset($_POST['add'])) {
     $newCategorie = new CategoryController();
     $newCategorie->addCategory();
@@ -15,13 +13,17 @@ if (isset($_POST["update-category"])) {
     $newCategorie = new CategoryController();
     $newCategorie->updateCategory();
 }
-
+if(isset($_POST["search"])){
+    $data = $category->SearchPosts();
+}else{
+    $data = $category->getAllCategorys();
+}
 
 ?>
 <header class="dashboard-header">
     <nav class="nav-bar flex justify-between">
         <div class="search-bar w-80">
-            <form>
+            <form method="post">
                 <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                 <div class="relative">
                     <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -29,8 +31,8 @@ if (isset($_POST["update-category"])) {
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                         </svg>
                     </div>
-                    <input type="search" id="default-search" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search" required>
-                    <button type="submit" class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+                    <input type="search" name="input-search" id="default-search" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search" required>
+                    <button type="submit" name="search" class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
                 </div>
             </form>
 
@@ -61,7 +63,16 @@ if (isset($_POST["update-category"])) {
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($data as $val) { ?>
+                <?php
+                if($data==0){
+                 ?>
+                 <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                        <td colspan="3" class="text-center font-bold px-6 py-4">
+                            there is no data to show
+                        </td>
+                </tr>
+                 <?php
+                }else{ foreach ($data as $val) { ?>
                     <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                         <td class="text-center px-6 py-4">
                             <?php echo $val['id_category'] ?>
@@ -87,7 +98,7 @@ if (isset($_POST["update-category"])) {
                             </form>
                         </td>
                     </tr>
-                <?php } ?>
+                <?php } }?>
             </tbody>
         </table>
     </div>

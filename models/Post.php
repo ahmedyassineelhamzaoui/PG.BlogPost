@@ -38,6 +38,17 @@ class Post {
 		$stmt=DB::connect()->prepare('SELECT * FROM post ');
 		$stmt->execute();
 		return $stmt->rowCount();
+		$stmt=null;
+	}
+	static public function GetSearchPost($data){
+		$stmt=DB::connect()->prepare("SELECT * FROM post p INNER JOIN category c on p.post_category=c.id_category WHERE title like ? OR content like ? or name like ? ");
+		$stmt->execute($data);
+		if($stmt->rowCount()==0){
+			return 0;
+		}else{
+			return $stmt->fetchAll(PDO::FETCH_ASSOC);
+		}
+		$stmt=null;
 	}
 }
 

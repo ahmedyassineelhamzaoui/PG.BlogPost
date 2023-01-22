@@ -57,6 +57,13 @@ class PostsController{
 	  $result=Post::GetNumberRow();
       return $result;
 	}
+	public function searchPosts(){
+		if(isset($_POST['search'])){
+			$data=array('%'.$_POST['input-search'].'%','%'.$_POST['input-search'].'%','%'.$_POST['input-search'].'%');
+			$result=Post::GetSearchPost($data);
+			return $result;
+		}
+	}
 }
 
 ?>

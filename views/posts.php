@@ -15,16 +15,23 @@ if (isset($_POST['update-post'])) {
 }
 if (isset($_POST['search'])) {
     $data = $post->searchPosts();
-} else {
-    $data = $post->getAllPosts();
-}
+} else
+    if(isset($_GET['mypage'])){
+       $param=$_GET['mypage']*4;
+       $data = $post->getAllPosts($param);
+
+    }else{
+        $param=0;
+        $data = $post->getAllPosts($param);
+    }
+
 $users = new UsersController();
 $resultPosts = $post->AllPosts();
 $resultCategory = $category->AllCategorys();
 $bestCategory = $category->getBestCategory()['name'];
 $resultUsers = $users->AllUsers();
 ?>
-<header class="dashboard-header z-10">
+<!-- <header class="dashboard-header z-10">
     <nav class="nav-bar flex justify-between">
         <div class="search-bar w-80">
             <form method="post">
@@ -44,9 +51,9 @@ $resultUsers = $users->AllUsers();
             <i class="w-6 h-6 fa-solid fa-bars"></i>
         </div>
     </nav>
-</header>
+</header> -->
 <section class="my-section mt-20 flex justify-center">
-    <div class="w-4/5">
+    <div class="w-11/12">
         <div class=" mb-4  w-full grid row gap-4  xl:grid-cols-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ">
             <div class='bg-white shadow h-24 rounded flex justify-around items-center font-bold'>
                 <div class="text-center">
@@ -91,7 +98,7 @@ $resultUsers = $users->AllUsers();
             <button id="add-post" type="button" data-modal-target="staticModal" data-modal-toggle="staticModal" class="flex  items-center text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"><i class="fa-solid fa-plus mr-2"></i> <span>Add Post</span></button>
         </div>
         <?php include('includes/alerts.php'); ?>
-        <div class="relative overflow-x-auto shadow-md sm:rounded-lg ">
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg mb-4">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
@@ -141,7 +148,7 @@ $resultUsers = $users->AllUsers();
                                     <?php echo $post['name'] ?>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <button type="button" class="text-white bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 shadow-lg shadow-pink-500/50 dark:shadow-lg dark:shadow-pink-80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">overview</button>
+                                    <button  onclick="overview('<?= $post['title'] ?>','<?= $post['content'] ?>','<?= $post['name'] ?>','<?= $post['picture'] ?>')" type="button" class="text-white bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 shadow-lg shadow-pink-500/50 dark:shadow-lg dark:shadow-pink-80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">overview</button>
                                 </td>
                                 <td class="px-6 py-4 text-center">
                                     <form method="post">
@@ -165,6 +172,23 @@ $resultUsers = $users->AllUsers();
                     } ?>
                 </tbody>
             </table>
+        </div>
+        <?php
+        $numberOfButtons =ceil($resultPosts / 4);
+        ?>
+        <div class="flex justify-end mb-3">
+            <div>
+                <button type="submit" class="px-4 py-2 rounded bg-blue-600 font-bold text-white hover:bg-blue-700"><i class="fa-solid fa-caret-left"></i></button>
+
+                <?php
+                for ($i = 1; $i <=$numberOfButtons; $i++) {
+                ?>
+                    <a href='?mypage="<?= $i ?>"' class="px-4 py-2 rounded bg-blue-600 font-bold text-white hover:bg-blue-700"><?= $i ?></a>
+                <?php
+                }
+                ?>
+                <button type="submit" class="px-4 py-2 rounded bg-blue-600 font-bold text-white hover:bg-blue-700"><i class="fa-sharp fa-solid fa-caret-right"></i></button>
+            </div>
         </div>
     </div>
 </section>
@@ -193,11 +217,12 @@ $resultUsers = $users->AllUsers();
                     <div>
                         <label for="number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Number of posts you want to add</label>
                         <input type="number" name="number_posts" min="1" max="10" id="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Number of posts" required>
+                        <p id="add-error" class="text-red-400 hidden font-bold">please fill this feild</p>
                     </div>
                 </div>
                 <!-- Modal footer -->
                 <div class="flex items-center justify-end p-4 mt-4 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                    <button type="submit" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Create</button>
+                    <button id="add-number" type="submit" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Create</button>
                     <button id="decline-modal" type="button" class="text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Decline</button>
                 </div>
             </form>
@@ -205,18 +230,16 @@ $resultUsers = $users->AllUsers();
     </div>
 </div>
 
-<div class="hidden fixed flex justify-center items-center top-0 left-0 right-0 bg-black h-screen bg-opacity-50 z-20">
-
-    <div class="mx-4 max-w-lg h-4/5 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 overflow-x-auto">
-        <img class="rounded-t-lg h-36 w-full" src="./public/images/social.jpg" alt="" />
+<div id="my-overView" class="hidden  fixed flex justify-center items-center top-0 left-0 right-0 bg-black h-screen bg-opacity-50 z-20">
+    <div class="relative mx-4 max-w-lg w-3/5 h-4/5 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 overflow-x-auto">
+        <img id="Opost-image" class="rounded-t-lg h-2/5 w-full">
         <div class="p-5">
-            <a href="#">
-                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology acquisitions 2021</h5>
-            </a>
-            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, laboriosam harum sunt aperiam error obcaecati eaque voluptates accusantium sequi autem totam repellat nemo vitae recusandae similique atque nihil blanditiis aut. Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis animi est labore at quas dolor pariatur culpa consequuntur nam, cum, porro nesciunt iste voluptate quo? Doloremque omnis sapiente voluptatum debitis. Lorem ipsum dolor sit,</p>
+            <h5 id='Opost-title' class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"></h5>
+            <p id="Opost-content" class="mb-3 font-normal text-gray-700 dark:text-gray-400"></p>
+            <b id="Opsts-Category"></b>
         </div>
-        <div class="flex justify-end">
-            <button type="button" class="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Decline</button>
+        <div class="absolute bottom-0 flex justify-end right-1">
+            <button id="hide-overView" type="button" class="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Decline</button>
         </div>
     </div>
 </div>

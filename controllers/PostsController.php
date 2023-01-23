@@ -1,8 +1,8 @@
 <?php
 class PostsController{
 
-	public function getAllPosts(){
-		$post = Post::getAll();
+	public function getAllPosts($param){
+		$post = Post::getAll($param);
 		return $post;
 	}
 	public function addPost(){

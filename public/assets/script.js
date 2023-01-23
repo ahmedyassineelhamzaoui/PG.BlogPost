@@ -119,3 +119,41 @@ if(document.querySelector('#declineUpdate-modal')){
     document.querySelector('#update-Modal').classList.add("hidden");
     }
 }
+let hideOverView=document.querySelector("#hide-overView")
+let myOverView=document.querySelector("#my-overView")
+let showOverView=document.querySelector("#show-overView")
+if(hideOverView){
+    hideOverView.onclick=()=>{
+        myOverView.classList.add('hidden')
+        console.log('hide')
+    }
+}
+function overview(title,content,name,image){
+    myOverView.classList.remove('hidden')
+    console.log(title)
+    console.log(content)
+    document.querySelector("#Opost-title").textContent=title
+    document.querySelector("#Opost-content").textContent=content
+    document.querySelector("#Opost-image").setAttribute('src','public/images/'+image)
+    document.querySelector("#Opsts-Category").textContent=name;
+}
+if(document.querySelector('#add-number')){
+  document.querySelector('#add-number').addEventListener('click',(e)=>{
+     if(document.querySelector("#number").value==""){
+        document.querySelector("#number").style.border="2px solid red"
+        document.querySelector('#add-error').classList.remove('hidden');
+        e.preventDefault();
+     }
+  })
+  document.querySelector('#number').onclick=()=>{
+        document.querySelector("#number").style.border=""
+        document.querySelector('#add-error').classList.add('hidden');
+
+  }
+  if(document.querySelector("#add-AllPosts")){
+    let postsTitle=document.querySelectorAll(".post-title ")
+    document.querySelector("#add-AllPosts").addEventListener('click',(e)=>{
+        
+    })
+  }
+}

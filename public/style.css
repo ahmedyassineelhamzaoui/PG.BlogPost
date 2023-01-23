@@ -94,8 +94,8 @@ body{
     width:100%;
     background-color: rgb(255, 255, 255);
     height:60px;
-    z-index:0;
     top: 0;
+    box-shadow: 0px 2px 20px gray ;
 }
 .dashboard-header .nav-bar{
     margin-right: 10px;

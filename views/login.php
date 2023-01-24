@@ -17,11 +17,14 @@ $compte->login();
                   <div>
                       <label for="email-login" class="block mb-2 text-sm font-medium text-gray-900">Your email</label>
                       <input value="<?php if(isset($_COOKIE['email'])) echo $_COOKIE['email'];?>" type="email" name="email-login" id="email-login" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 " placeholder="exemple@gmail.com" required="">
-                  </div>
+                      <p id="error-SigninMail" class="text-red-400 font-bold "></p>
+                    </div>
                   <div>
                       <label for="password-login" class="block mb-2 text-sm font-medium text-gray-900 ">Password</label>
                       <input value="<?php if(isset($_COOKIE['password'])) echo $_COOKIE['email'];?>" type="password" name="password-login" id="password-login" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" required="">
-                  </div>
+                      <p id="error-Signinpassword"  class="text-red-400 font-bold "></p>
+                 
+                    </div>
                   <div class="flex items-center justify-between">
                       <div class="flex items-start">
                           <div class="flex items-center h-5">
@@ -33,7 +36,7 @@ $compte->login();
                       </div>
                       <a href="forget" class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot password?</a>
                   </div>
-                  <button type="submit" name="login" class="w-full text-white bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Sign in</button>
+                  <button type="submit" name="login" id="login-form" class="w-full text-white bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Sign in</button>
                   <p class="text-sm font-light text-gray-500 ">
                      <span class="font-bold">Don’t have an account yet?</span>  <a href="register" class="font-medium text-cyan-500 hover:underline ">Sign up</a>
                   </p>

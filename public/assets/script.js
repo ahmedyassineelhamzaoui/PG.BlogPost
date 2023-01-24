@@ -215,7 +215,7 @@ if (addAllPosts) {
     });
 }
 
-let emailRegex = /^[^-_.][a-zA-Z0-9-_.]+@[a-z]+.[a-z]{2,3}$/
+let emailRegex = /(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/
 let passwordRegex = /^[a-zA-Z0-9-_.@#]{8,14}$/
 let nameRegex=/^[a-zA-Z ]{2,100}$/
 
@@ -229,68 +229,107 @@ let emailSignupError = document.querySelector("#emailSignup-error")
 let passwordSignupError = document.querySelector("#passwordSignup-error")
 let rpeateSignupError = document.querySelector("#rpeateSignup-error")
 
-// if (document.querySelector("#signup")) {
-//     document.querySelector("#signup").addEventListener('click', (e) => {
-//         if (Signupname.value.trim() == "") {
-//             Signupname.style.border = "2px solid red"
-//             nameError.textContent = "please fill this field"
-//             e.preventDefault();
-//         }else if(!nameRegex.test(Signupname.value)){
-//             Signupname.style.border = "2px solid red"
-//             nameError.textContent = "invalid name"
-//             e.preventDefault();
-//         }
-//         Signupname.onclick = () => {
-//             Signupname.style.border = ""
-//             nameError.textContent = ""
-//         }
-//         if (emailSignup.value.trim() == "") {
-//             emailSignup.style.border = "2px solid red"
-//             emailSignupError.textContent = "please fill this field"
-//             e.preventDefault();
+if (document.querySelector("#signup")) {
+    document.querySelector("#signup").addEventListener('click', (e) => {
+        if (Signupname.value.trim() == "") {
+            Signupname.style.border = "2px solid red"
+            nameError.textContent = "please fill this field"
+            e.preventDefault();
+        }else if(!nameRegex.test(Signupname.value)){
+            Signupname.style.border = "2px solid red"
+            nameError.textContent = "invalid name"
+            e.preventDefault();
+        }
+        Signupname.onclick = () => {
+            Signupname.style.border = ""
+            nameError.textContent = ""
+        }
+        if (emailSignup.value.trim() == "") {
+            emailSignup.style.border = "2px solid red"
+            emailSignupError.textContent = "please fill this field"
+            e.preventDefault();
 
-//         }else
-//         if (!emailRegex.test(emailSignup.value)) {
-//             emailSignup.style.border = "2px solid red"
-//             emailSignupError.textContent = "please eneter a valid mail"
-//             e.preventDefault();
+        }else
+        if (!emailRegex.test(emailSignup.value)) {
+            emailSignup.style.border = "2px solid red"
+            emailSignupError.textContent = "please eneter a valid mail"
+            e.preventDefault();
 
-//         }
-//         emailSignup.onclick = () => {
-//             emailSignup.style.border = ""
-//             emailSignupError.textContent = ""
-//         }
-//         if (passwordSingup.value.trim() == "") {
-//             passwordSingup.style.border = "2px solid red"
-//             passwordSignupError.textContent = "please fill this field"
-//             e.preventDefault();
+        }
+        emailSignup.onclick = () => {
+            emailSignup.style.border = ""
+            emailSignupError.textContent = ""
+        }
+        if (passwordSingup.value.trim() == "") {
+            passwordSingup.style.border = "2px solid red"
+            passwordSignupError.textContent = "please fill this field"
+            e.preventDefault();
 
-//         }else
-//         if (!passwordRegex.test(passwordSingup.value)) {
-//             passwordSingup.style.border = "2px solid red"
-//             passwordSignupError.textContent = "Password must contains capital,lower,number and a special characters"
-//             e.preventDefault();
+        }else
+        if (!passwordRegex.test(passwordSingup.value)) {
+            passwordSingup.style.border = "2px solid red"
+            passwordSignupError.textContent = "Password must contains capital,lower,number and a special characters"
+            e.preventDefault();
        
-//         }
-//         passwordSingup.onclick = () => {
-//             passwordSingup.style.border = ""
-//             passwordSignupError.textContent = ""
-//         }
-//         if (passwordSingupRepeat.value.trim() == "") {
-//             passwordSingupRepeat.style.border = "2px solid red"
-//             rpeateSignupError.textContent = "please fill this field"
-//             e.preventDefault();
-//         }
-//         if(passwordRegex.test(passwordSingup.value)){
-//             if(passwordSingupRepeat.value !=passwordSingup.value ){
-//                 passwordSingupRepeat.style.border = "2px solid red"
-//                 rpeateSignupError.textContent = "this password dosn't match the first password"
-//                 e.preventDefault();
-//             }
-//         }
-//         passwordSingupRepeat.onclick = () => {
-//             passwordSingupRepeat.style.border = ""
-//             rpeateSignupError.textContent = ""
-//         }
-//     })
-// }
+        }
+        passwordSingup.onclick = () => {
+            passwordSingup.style.border = ""
+            passwordSignupError.textContent = ""
+        }
+        if (passwordSingupRepeat.value.trim() == "") {
+            passwordSingupRepeat.style.border = "2px solid red"
+            rpeateSignupError.textContent = "please fill this field"
+            e.preventDefault();
+        }
+        if(passwordRegex.test(passwordSingup.value)){
+            if(passwordSingupRepeat.value !=passwordSingup.value ){
+                passwordSingupRepeat.style.border = "2px solid red"
+                rpeateSignupError.textContent = "this password dosn't match the first password"
+                e.preventDefault();
+            }
+        }
+        passwordSingupRepeat.onclick = () => {
+            passwordSingupRepeat.style.border = ""
+            rpeateSignupError.textContent = ""
+        }
+    })
+}
+
+
+if(document.querySelector('#login-form')){
+    let emailLogin=document.querySelector("#email-login")
+    let passwordLogin=document.querySelector("#password-login")
+    let errorSigninMail=document.querySelector("#error-SigninMail")
+    let errorSigninpassword=document.querySelector("#error-Signinpassword")
+
+    document.querySelector("#login-form").addEventListener('click',(e)=>{
+        if(emailLogin.value==""){
+            emailLogin.style.border="2px solid red"
+            errorSigninMail.textContent="you must fill this field"
+            e.preventDefault()
+        }else
+        if(!emailRegex.test(emailLogin.value)){
+            emailLogin.style.border="2px solid red"
+            errorSigninMail.textContent="invalid mail"
+            e.preventDefault()
+        }
+        emailLogin.onclick=()=>{
+            emailLogin.style.border=""
+            errorSigninMail.textContent=""
+        }
+        if(passwordLogin.value==""){
+            passwordLogin.style.border="2px solid red"
+            errorSigninpassword.textContent="you must fill this field"
+            e.preventDefault()
+        }else 
+        if(!passwordRegex.test(passwordLogin.value)){
+            passwordLogin.style.border="2px solid red"
+            errorSigninpassword.textContent="invalid password"
+            e.preventDefault()
+        }
+        passwordLogin.onclick=()=>{
+            passwordLogin.style.border=""
+            errorSigninpassword.textContent=""
+        }
+    })
+}

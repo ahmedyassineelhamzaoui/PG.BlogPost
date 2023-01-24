@@ -13,15 +13,30 @@ class PostsController{
 			$content=$_POST["post-content"];
 			$category=$_POST['post-category'];
             foreach($title as $index=>$titles){
-				$data=array($titles,$content[$index],$filename[$index],$category[$index]);
-				$result=Post::insert($data);
-				if($result==='ok'){
-					move_uploaded_file($image[$index],'./public/images/'.$filename[$index]);
-					 Session::set('success','Post added succesdfuly');
+				$regex = "/^.{1,100}$/";
+				$regexContent = "/^(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9 ,.-]{50,}$/";
+
+				if (!preg_match($regex, $titles)){
+					Session::set('info','title is not valid');
 					header('location:posts');
-				}else{
-					echo $result;
 				}
+				if (!preg_match($regexContent, $content[$index])){
+					Session::set('info','content must conatin at least 50 charcters');
+					header('location:posts');
+				}
+				else{
+					$data=array($titles,$content[$index],$filename[$index],$category[$index]);
+					$result=Post::insert($data);
+	
+					if($result==='ok'){
+						move_uploaded_file($image[$index],'./public/images/'.$filename[$index]);
+						Session::set('success','Post added succesdfuly');
+						header('location:posts');
+					}else{
+						echo $result;
+					}
+				}
+				
 			}
 		}
 	}

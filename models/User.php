@@ -52,5 +52,14 @@ class User{
             
         }
     }
+    static public function getConnectedUser($data){
+          $stmt=DB::connect()->prepare('SELECT * FROM users WHERE id=?');
+          $stmt->execute($data);
+          return $stmt->fetch(PDO::FETCH_OBJ);
+    }
+    static public function ProfileUpdated($data){
+          $stmt=DB::connect()->prepare('UPDATE users SET name=?, email=?, password=?,repassword=?  WHERE id=? ');
+          $stmt->execute($data);
+    }
 }
 ?>

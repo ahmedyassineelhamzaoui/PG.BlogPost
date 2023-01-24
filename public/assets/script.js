@@ -333,3 +333,19 @@ if(document.querySelector('#login-form')){
         }
     })
 }
+
+if(document.querySelector("#declineProfile-modal")){
+    document.querySelector("#declineProfile-modal").onclick=()=>{
+        document.querySelector('#profile-Modal').classList.add("hidden");
+    }
+}
+if(document.querySelector("#closeeditProfile-modal")){
+    document.querySelector("#closeeditProfile-modal").onclick=()=>{
+        document.querySelector('#profile-Modal').classList.add("hidden");
+    }
+}
+if(document.querySelector("#edit-profile")){
+    document.querySelector("#edit-profile").onclick=()=>{
+        document.querySelector('#profile-Modal').classList.remove("hidden"); 
+    }
+}

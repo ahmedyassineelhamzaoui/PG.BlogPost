@@ -49,6 +49,8 @@ class UsersController
                     if ($result->email === $_POST['email-login'] && ($result->password === $_POST['password-login'])) {
                         $_SESSION['logged'] = true;
                         $_SESSION['name'] = $result->name;
+                        $_SESSION['id']=$result->id;
+
                         header('location:users');
                     } else {
                         Session::set('Error', 'email or password are not correct');
@@ -58,6 +60,7 @@ class UsersController
                     if ($result->email === $_POST['email-login'] && password_verify($_POST['password-login'], $result->password)) {
                         $_SESSION['logged'] = true;
                         $_SESSION['name'] = $result->name;
+                        $_SESSION['id']=$result->id;
                         setcookie('email', $result->email, time() + 60 * 60 * 7);
                         setcookie('password', $result->password, time() + 60 * 60 * 7);
                         header('location:users');
@@ -71,15 +74,23 @@ class UsersController
                     if ($result->email === $_POST['email-login'] && ($result->password === $_POST['password-login'])) {
                         $_SESSION['logged'] = true;
                         $_SESSION['name'] = $result->name;
+                        $_SESSION['id']=$result->id;
+
                         header('location:users');
                     } else {
                         Session::set('Error', 'email or password are not correct');
                         header('location:login');
                     }
                 } else {
-                    if ($result->email === $_POST['email-login'] && password_verify($_POST['password-login'], $result->password)) {
+                    if($result->email !== $_POST['email-login']){
+                        Session::set('info', 'this mail dosn\'t exist <a href="register">create your account</a>');
+                        header('location:login');
+                    }
+                    else if ($result->email === $_POST['email-login'] && password_verify($_POST['password-login'], $result->password)) {
                         $_SESSION['logged'] = true;
                         $_SESSION['name'] = $result->name;
+                        $_SESSION['id']=$result->id;
+
                         header('location:users');
                     } else {
                         Session::set('Error', 'email or password are not correct');
@@ -123,6 +134,24 @@ class UsersController
             $data=array('%'.$_POST["input-search"].'%','%'.$_POST["input-search"].'%');
             $result =User::GetSeachedUser($data);
             return $result;
+        }
+    }
+    public function ConnectedUser(){
+        $data=array($_SESSION['id']);
+        $result= User::getConnectedUser($data);
+        return $result;
+    }
+    public function UpdateProfile(){
+       
+        if(isset($_POST['edit-profile'])){
+            $options = [
+                'cost' => 12
+            ];
+            $password = password_hash($_POST["user-password"], PASSWORD_BCRYPT, $options);
+            $data=array($_POST['user-name'],$_POST["user-email"],$password,$password,$_POST["user-id"]);
+            User::ProfileUpdated($data);
+            Session::set('success','Profile has been updated successfuly');
+            header('location:users');
         }
     }
 }

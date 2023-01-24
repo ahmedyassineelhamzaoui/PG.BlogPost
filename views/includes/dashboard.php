@@ -1,3 +1,10 @@
+<?php
+$user=new UsersController();
+$result = $user->ConnectedUser();
+
+?>
+
+
 <main id="dashboard-page">
 
 <aside class="side-bar z-20">
@@ -11,14 +18,13 @@
             <img src="./public/images/profile.png" alt="">
         </div >
         <div class="user-connect">
-            <p>Admin<br>connect</p>
+            <p><?= $result->name ?><br>Admin</p>
         </div>
-        <ul class="list-content1 ">
-            <li><a href="analytics"><i class="fa-solid fa-chart-simple"></i><span class="words">Analytics</span></a></li>
+        <ul class="list-content1">
             <li><a href="category"><i class="fa-solid fa-table-columns"></i><span class="words">Category</span></a></li>
             <li><a href="posts"><i class="fa-solid fa-blog"></i><span  class="words">Posts</span></a></li>
             <li><a href="users"><i class="fa-solid fa-users"></i><span  class="words">Users</span></a></li>
-            <li><a href="Profile"><i class="fa-solid fa-address-card"></i><span class="words">Profile</span></a></li>
+            <li><a class="cursor-pointer" id="edit-profile"><i class="fa-solid fa-address-card"></i><span class="words">Profile</span></a></li>
             <li><a class="logout" href="logout"><i class="fa-solid fa-right-from-bracket"></i><span class="words">logout</span></a></li>
         </ul>
     </div>

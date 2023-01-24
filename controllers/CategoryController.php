@@ -2,7 +2,7 @@
 class CategoryController{
 
 	public function getAllCategorys(){
-		$category = Category::getAll();
+		$category = Category::getUnique();
 		return $category;
 	}
 	public function addCategory(){
@@ -19,7 +19,7 @@ class CategoryController{
 	}
 	public function deleteCategory(){
 		if(isset($_POST['delete-category'])){
-			$data=array($_POST["category-id"]);
+			$data=array($_POST["deleted-idConfirm"]);
 			$result=Category::delete($data);
             if($result==='ok'){
 				Session::set('success','Category deleted succesdfuly');
@@ -31,7 +31,7 @@ class CategoryController{
 	}
 	public function updateCategory(){
 		if(isset($_POST['update-category'])){
-			$data=array($_POST["categorySelect_name"],$_POST["category-id"]);
+			$data=array($_POST["category_updated"],$_POST["category-id"]);
 			$result=Category::update($data);
 			if($result==='ok'){
 				Session::set('success','Category has been updated succesdfuly');

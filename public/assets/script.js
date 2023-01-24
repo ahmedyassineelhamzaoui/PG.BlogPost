@@ -96,11 +96,25 @@ function editCategory(name, id) {
     categoryModal.classList.remove('hidden');
     document.querySelector("#update-category").style.display = 'block';
     document.querySelector("#add").style.display = 'none';
-    document.querySelector("#dorpDown-category").value = name;
+    document.querySelector("#category_updated").value = name;
     document.querySelector("#category-id").value = id
     document.querySelector("#my-field").style.display = "none"
     document.querySelector('#drop-down').style.display = "block"
-    console.log(name, id)
+}
+function deleteCategory(id) {
+    document.querySelector('#delet-modal').classList.remove('hidden')
+    document.querySelector("#deleted-idConfirm").value = id
+
+}
+if (document.querySelector("#closedeletedModal")) {
+    document.querySelector("#closedeletedModal").onclick = () => {
+        document.querySelector('#delet-modal').classList.add('hidden')
+    }
+}
+if (document.querySelector("#ccanceldeletedModal")) {
+    document.querySelector("#canceldeletedModal").onclick = () => {
+        document.querySelector('#delet-modal').classList.add('hidden')
+    }
 }
 function editPost(id, title, content, name, image) {
     document.querySelector('#update-Modal').classList.remove("hidden");
@@ -217,7 +231,7 @@ if (addAllPosts) {
 
 let emailRegex = /(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/
 let passwordRegex = /^[a-zA-Z0-9-_.@#]{8,14}$/
-let nameRegex=/^[a-zA-Z ]{2,100}$/
+let nameRegex = /^[a-zA-Z ]{2,100}$/
 
 let Signupname = document.querySelector("#name");
 let emailSignup = document.querySelector("#email-signup");
@@ -235,7 +249,7 @@ if (document.querySelector("#signup")) {
             Signupname.style.border = "2px solid red"
             nameError.textContent = "please fill this field"
             e.preventDefault();
-        }else if(!nameRegex.test(Signupname.value)){
+        } else if (!nameRegex.test(Signupname.value)) {
             Signupname.style.border = "2px solid red"
             nameError.textContent = "invalid name"
             e.preventDefault();
@@ -249,13 +263,13 @@ if (document.querySelector("#signup")) {
             emailSignupError.textContent = "please fill this field"
             e.preventDefault();
 
-        }else
-        if (!emailRegex.test(emailSignup.value)) {
-            emailSignup.style.border = "2px solid red"
-            emailSignupError.textContent = "please eneter a valid mail"
-            e.preventDefault();
+        } else
+            if (!emailRegex.test(emailSignup.value)) {
+                emailSignup.style.border = "2px solid red"
+                emailSignupError.textContent = "please eneter a valid mail"
+                e.preventDefault();
 
-        }
+            }
         emailSignup.onclick = () => {
             emailSignup.style.border = ""
             emailSignupError.textContent = ""
@@ -265,13 +279,13 @@ if (document.querySelector("#signup")) {
             passwordSignupError.textContent = "please fill this field"
             e.preventDefault();
 
-        }else
-        if (!passwordRegex.test(passwordSingup.value)) {
-            passwordSingup.style.border = "2px solid red"
-            passwordSignupError.textContent = "Password must contains capital,lower,number and a special characters"
-            e.preventDefault();
-       
-        }
+        } else
+            if (!passwordRegex.test(passwordSingup.value)) {
+                passwordSingup.style.border = "2px solid red"
+                passwordSignupError.textContent = "Password must contains capital,lower,number and a special characters"
+                e.preventDefault();
+
+            }
         passwordSingup.onclick = () => {
             passwordSingup.style.border = ""
             passwordSignupError.textContent = ""
@@ -281,8 +295,8 @@ if (document.querySelector("#signup")) {
             rpeateSignupError.textContent = "please fill this field"
             e.preventDefault();
         }
-        if(passwordRegex.test(passwordSingup.value)){
-            if(passwordSingupRepeat.value !=passwordSingup.value ){
+        if (passwordRegex.test(passwordSingup.value)) {
+            if (passwordSingupRepeat.value != passwordSingup.value) {
                 passwordSingupRepeat.style.border = "2px solid red"
                 rpeateSignupError.textContent = "this password dosn't match the first password"
                 e.preventDefault();
@@ -296,56 +310,56 @@ if (document.querySelector("#signup")) {
 }
 
 
-if(document.querySelector('#login-form')){
-    let emailLogin=document.querySelector("#email-login")
-    let passwordLogin=document.querySelector("#password-login")
-    let errorSigninMail=document.querySelector("#error-SigninMail")
-    let errorSigninpassword=document.querySelector("#error-Signinpassword")
+if (document.querySelector('#login-form')) {
+    let emailLogin = document.querySelector("#email-login")
+    let passwordLogin = document.querySelector("#password-login")
+    let errorSigninMail = document.querySelector("#error-SigninMail")
+    let errorSigninpassword = document.querySelector("#error-Signinpassword")
 
-    document.querySelector("#login-form").addEventListener('click',(e)=>{
-        if(emailLogin.value==""){
-            emailLogin.style.border="2px solid red"
-            errorSigninMail.textContent="you must fill this field"
+    document.querySelector("#login-form").addEventListener('click', (e) => {
+        if (emailLogin.value == "") {
+            emailLogin.style.border = "2px solid red"
+            errorSigninMail.textContent = "you must fill this field"
             e.preventDefault()
-        }else
-        if(!emailRegex.test(emailLogin.value)){
-            emailLogin.style.border="2px solid red"
-            errorSigninMail.textContent="invalid mail"
-            e.preventDefault()
+        } else
+            if (!emailRegex.test(emailLogin.value)) {
+                emailLogin.style.border = "2px solid red"
+                errorSigninMail.textContent = "invalid mail"
+                e.preventDefault()
+            }
+        emailLogin.onclick = () => {
+            emailLogin.style.border = ""
+            errorSigninMail.textContent = ""
         }
-        emailLogin.onclick=()=>{
-            emailLogin.style.border=""
-            errorSigninMail.textContent=""
-        }
-        if(passwordLogin.value==""){
-            passwordLogin.style.border="2px solid red"
-            errorSigninpassword.textContent="you must fill this field"
+        if (passwordLogin.value == "") {
+            passwordLogin.style.border = "2px solid red"
+            errorSigninpassword.textContent = "you must fill this field"
             e.preventDefault()
-        }else 
-        if(!passwordRegex.test(passwordLogin.value)){
-            passwordLogin.style.border="2px solid red"
-            errorSigninpassword.textContent="invalid password"
-            e.preventDefault()
-        }
-        passwordLogin.onclick=()=>{
-            passwordLogin.style.border=""
-            errorSigninpassword.textContent=""
+        } else
+            if (!passwordRegex.test(passwordLogin.value)) {
+                passwordLogin.style.border = "2px solid red"
+                errorSigninpassword.textContent = "invalid password"
+                e.preventDefault()
+            }
+        passwordLogin.onclick = () => {
+            passwordLogin.style.border = ""
+            errorSigninpassword.textContent = ""
         }
     })
 }
 
-if(document.querySelector("#declineProfile-modal")){
-    document.querySelector("#declineProfile-modal").onclick=()=>{
+if (document.querySelector("#declineProfile-modal")) {
+    document.querySelector("#declineProfile-modal").onclick = () => {
         document.querySelector('#profile-Modal').classList.add("hidden");
     }
 }
-if(document.querySelector("#closeeditProfile-modal")){
-    document.querySelector("#closeeditProfile-modal").onclick=()=>{
+if (document.querySelector("#closeeditProfile-modal")) {
+    document.querySelector("#closeeditProfile-modal").onclick = () => {
         document.querySelector('#profile-Modal').classList.add("hidden");
     }
 }
-if(document.querySelector("#edit-profile")){
-    document.querySelector("#edit-profile").onclick=()=>{
-        document.querySelector('#profile-Modal').classList.remove("hidden"); 
+if (document.querySelector("#edit-profile")) {
+    document.querySelector("#edit-profile").onclick = () => {
+        document.querySelector('#profile-Modal').classList.remove("hidden");
     }
 }

@@ -16,7 +16,7 @@ if (isset($_POST["update-category"])) {
 if(isset($_POST["search"])){
     $data = $category->SearchPosts();
 }else{
-    $data = $category->getAllCategorys();
+    $data = $category->GetUniqueCategory();
 }
 $users=new UsersController();
 $postNumber = new PostsController();
@@ -93,7 +93,7 @@ $resultUsers = $users->AllUsers();
         <button id="add-category" type="button" data-modal-target="staticModal" data-modal-toggle="staticModal" class="flex  items-center text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"><i class="fa-solid fa-plus mr-2"></i> <span>Add Category</span></button>
     </div>
     <?php include('includes/alerts.php'); ?>
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg mb-4">
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
@@ -135,7 +135,7 @@ $resultUsers = $users->AllUsers();
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
                                         </svg>
                                     </button>
-                                    <button type="submit" name="delete-category">
+                                    <button onclick="deleteCategory(<?= $val['id_category'] ?>)" type="button">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 cursor-pointer text-red-400">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
                                         </svg>
@@ -180,11 +180,10 @@ $resultUsers = $users->AllUsers();
                 </div>
                 <div id="drop-down" class="mx-4 mt-6">
                     <div>
-                        <select name="categorySelect_name" id="dorpDown-category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <?php foreach ($mydata as $val) { ?>
-                                <option ><?= $val["name"] ?></option>
-                            <?php } ?>
-                        </select>
+                    <div>
+                        <label for="My-category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">name of category</label>
+                        <input type="text" name="category_updated" id="category_updated" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Name of category">
+                    </div>
                     </div>
                 </div>
 
@@ -200,3 +199,23 @@ $resultUsers = $users->AllUsers();
         </div>
     </div>
 </div>
+<div id="delet-modal" class="fixed hidden top-0 left-0 w-full h-full flex items-center justify-center" style="background-color: rgba(0,0,0,0.5);">
+  <div class="relative rounded-lg p-6 bg-white">
+    <div class="flex justify-between items-center">
+      <h3 class="text-lg font-medium">Delete Confirmation</h3>
+      <button class="text-gray-500 font-medium cursor-pointer" id="closedeletedModal">&times;</button>
+    </div>
+    <div class="mt-4">
+      <p>Are you sure you want to delete this Category?</p>
+    </div>
+    <div class="flex justify-end mt-4">
+    <form method="post">
+    <input type="hidden" name="deleted-idConfirm" id="deleted-idConfirm">
+
+      <button class="px-4 py-2 rounded-md text-white bg-gray-600" id="canceldeletedModal">Cancel</button>
+      <button class="px-4 py-2 rounded-md text-white bg-red-600" type="submit" name="delete-category" >Delete</button>
+    </form>
+    </div>
+  </div>
+</div>
+

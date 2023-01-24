@@ -135,8 +135,8 @@ function overview(title, content, name, image) {
     document.querySelector("#Opost-image").setAttribute('src', 'public/images/' + image)
     document.querySelector("#Opsts-Category").textContent = name;
 }
-if(document.querySelector("#close-InfoAlert")){
-    document.querySelector("#close-InfoAlert").onclick=()=>{
+if (document.querySelector("#close-InfoAlert")) {
+    document.querySelector("#close-InfoAlert").onclick = () => {
         document.querySelector("#my-InfoAlert").classList.add('hidden');
     }
 }
@@ -163,54 +163,134 @@ if (addAllPosts) {
     addAllPosts.addEventListener('click', (e) => {
         postsTitle.forEach(element => {
             if (element.value.trim() == '') {
-                element.value=""
+                element.value = ""
                 element.style.border = "2px solid red"
-                element.setAttribute('placeholder','please fill this feild')
+                element.setAttribute('placeholder', 'please fill this feild')
                 element.classList.add("placeholder-red")
                 e.preventDefault();
             }
-            if(!Titleregex.test(element.value)){
-                element.value=""
+            if (!Titleregex.test(element.value)) {
+                element.value = ""
                 element.style.border = "2px solid red"
-                element.setAttribute('placeholder','please enter a valid title')
+                element.setAttribute('placeholder', 'please enter a valid title')
                 element.classList.add("placeholder-red")
                 e.preventDefault();
             }
         });
         postContent.forEach(element => {
             if (element.value.trim() == '') {
-                element.value=""
+                element.value = ""
                 element.style.border = "2px solid red"
-                element.setAttribute('placeholder','please fill this field')
+                element.setAttribute('placeholder', 'please fill this field')
                 element.classList.add("placeholder-red")
                 e.preventDefault();
             }
-            if(!regex.test(element.value)){
-                element.value=""
+            if (!regex.test(element.value)) {
+                element.value = ""
                 element.style.border = "2px solid red"
-                element.setAttribute('placeholder','This text must contains at least 50 charcters')
+                element.setAttribute('placeholder', 'This text must contains at least 50 charcters')
                 element.classList.add("placeholder-red")
                 e.preventDefault();
             }
 
         });
     })
-        postsTitle.forEach(element => {
-            element.onclick=()=>{
-                if (element.value.trim() == ''){
-                    element.value=""
-                    element.style.border = ""
-                    element.classList.remove("placeholder-red")
-                }
+    postsTitle.forEach(element => {
+        element.onclick = () => {
+            if (element.value.trim() == '') {
+                element.value = ""
+                element.style.border = ""
+                element.classList.remove("placeholder-red")
             }
-        });
-        postContent.forEach(element => {
-            element.onclick=()=>{
-                if (element.value.trim() == ''){
-                    element.value=""
-                    element.style.border = ""
-                    element.classList.remove("placeholder-red")
-                }
+        }
+    });
+    postContent.forEach(element => {
+        element.onclick = () => {
+            if (element.value.trim() == '') {
+                element.value = ""
+                element.style.border = ""
+                element.classList.remove("placeholder-red")
             }
-        });
+        }
+    });
+}
+
+let emailRegex = /^[^-_.][a-zA-Z0-9-_.]+@[a-z]+.[a-z]{2,3}$/
+let passwordRegex = /^[a-zA-Z0-9-_.@#]{8,14}$/
+let nameRegex=/^[a-zA-Z ]{2,100}$/
+
+let Signupname = document.querySelector("#name");
+let emailSignup = document.querySelector("#email-signup");
+let passwordSingup = document.querySelector("#password-singup");
+let passwordSingupRepeat = document.querySelector("#password-singup-repeat");
+
+let nameError = document.querySelector("#name-error")
+let emailSignupError = document.querySelector("#emailSignup-error")
+let passwordSignupError = document.querySelector("#passwordSignup-error")
+let rpeateSignupError = document.querySelector("#rpeateSignup-error")
+
+if (document.querySelector("#signup")) {
+    document.querySelector("#signup").addEventListener('click', (e) => {
+        if (Signupname.value.trim() == "") {
+            Signupname.style.border = "2px solid red"
+            nameError.textContent = "please fill this field"
+            e.preventDefault();
+        }else if(!nameRegex.test(Signupname.value)){
+            Signupname.style.border = "2px solid red"
+            nameError.textContent = "invalid name"
+            e.preventDefault();
+        }
+        Signupname.onclick = () => {
+            Signupname.style.border = ""
+            nameError.textContent = ""
+        }
+        if (emailSignup.value.trim() == "") {
+            emailSignup.style.border = "2px solid red"
+            emailSignupError.textContent = "please fill this field"
+            e.preventDefault();
+
+        }else
+        if (!emailRegex.test(emailSignup.value)) {
+            emailSignup.style.border = "2px solid red"
+            emailSignupError.textContent = "please eneter a valid mail"
+            e.preventDefault();
+
+        }
+        emailSignup.onclick = () => {
+            emailSignup.style.border = ""
+            emailSignupError.textContent = ""
+        }
+        if (passwordSingup.value.trim() == "") {
+            passwordSingup.style.border = "2px solid red"
+            passwordSignupError.textContent = "please fill this field"
+            e.preventDefault();
+
+        }else
+        if (!passwordRegex.test(passwordSingup.value)) {
+            passwordSingup.style.border = "2px solid red"
+            passwordSignupError.textContent = "Password must contains capital,lower,number and a special characters"
+            e.preventDefault();
+       
+        }
+        passwordSingup.onclick = () => {
+            passwordSingup.style.border = ""
+            passwordSignupError.textContent = ""
+        }
+        if (passwordSingupRepeat.value.trim() == "") {
+            passwordSingupRepeat.style.border = "2px solid red"
+            rpeateSignupError.textContent = "please fill this field"
+            e.preventDefault();
+        }
+        if(passwordRegex.test(passwordSingup.value)){
+            if(passwordSingupRepeat.value !=passwordSingup.value ){
+                passwordSingupRepeat.style.border = "2px solid red"
+                rpeateSignupError.textContent = "this password dosn't match the first password"
+                e.preventDefault();
+            }
+        }
+        passwordSingupRepeat.onclick = () => {
+            passwordSingupRepeat.style.border = ""
+            rpeateSignupError.textContent = ""
+        }
+    })
 }

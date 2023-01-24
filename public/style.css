@@ -142,3 +142,25 @@ body{
   font-size: 15px;
   font-weight: bold;
   }
+  .hitgth-modal{
+    height: 94% !important;
+  }
+  .hitgth-modal::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+  /* Track */
+  .hitgth-modal::-webkit-scrollbar-track {
+    background: #e5e5e5;
+  }
+  
+  /* Handle */
+  .hitgth-modal::-webkit-scrollbar-thumb {
+    background: #299ed0;
+     border-radius: 6px;
+  }
+  
+  /* Handle on hover */
+  .hitgth-modal::-webkit-scrollbar-thumb:hover {
+    background: #0056b3;
+  }

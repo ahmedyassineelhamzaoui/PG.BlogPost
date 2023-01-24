@@ -26,3 +26,4 @@ if (isset($_SESSION["logged"]) && $_SESSION["logged"] == true) {
 } else {
     $home->index('login');
 }
+require_once './views/includes/footer.php';

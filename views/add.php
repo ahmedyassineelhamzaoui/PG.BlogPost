@@ -2,7 +2,12 @@
 $category = new CategoryController();
 $mydata = $category->GetUniqueCategory();
 if (isset($_POST["number_posts"])) {
-    $_SESSION["post_number"] = $_POST["number_posts"];
+    if(empty($_POST["nummber_posts"])){
+        Session::set('info','you must enter a number between 1 and 10');
+        header('location:posts');
+    }else{
+        $_SESSION["post_number"] = $_POST["number_posts"];
+    }
 }
 if (isset($_POST["add-post"])) {
     $post = new PostsController();

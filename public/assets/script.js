@@ -135,6 +135,11 @@ function overview(title, content, name, image) {
     document.querySelector("#Opost-image").setAttribute('src', 'public/images/' + image)
     document.querySelector("#Opsts-Category").textContent = name;
 }
+if(document.querySelector("#close-InfoAlert")){
+    document.querySelector("#close-InfoAlert").onclick=()=>{
+        document.querySelector("#my-InfoAlert").classList.add('hidden');
+    }
+}
 if (document.querySelector('#add-number')) {
     document.querySelector('#add-number').addEventListener('click', (e) => {
         if (document.querySelector("#number").value == "") {
@@ -149,63 +154,63 @@ if (document.querySelector('#add-number')) {
     }
 }
 let addAllPosts = document.querySelector("#add-AllPosts")
-// if (addAllPosts) {
-//     let postsTitle = document.querySelectorAll(".post-title")
-//     let postContent = document.querySelectorAll(".post-content")
-//     regex = /^(?=.*[a-z])(?=.*[A-Z]).{50,}$/;
-//     Titleregex = /^.{5,100}$/;
+if (addAllPosts) {
+    let postsTitle = document.querySelectorAll(".post-title")
+    let postContent = document.querySelectorAll(".post-content")
+    regex = /^(?=.*[a-z])(?=.*[A-Z]).{50,}$/;
+    Titleregex = /^.{5,100}$/;
 
-//     addAllPosts.addEventListener('click', (e) => {
-//         postsTitle.forEach(element => {
-//             if (element.value.trim() == '') {
-//                 element.value=""
-//                 element.style.border = "2px solid red"
-//                 element.setAttribute('placeholder','please fill this feild')
-//                 element.classList.add("placeholder-red")
-//                 e.preventDefault();
-//             }
-//             if(!Titleregex.test(element.value)){
-//                 element.value=""
-//                 element.style.border = "2px solid red"
-//                 element.setAttribute('placeholder','please enter a valid title')
-//                 element.classList.add("placeholder-red")
-//                 e.preventDefault();
-//             }
-//         });
-//         postContent.forEach(element => {
-//             if (element.value.trim() == '') {
-//                 element.value=""
-//                 element.style.border = "2px solid red"
-//                 element.setAttribute('placeholder','please fill this field')
-//                 element.classList.add("placeholder-red")
-//                 e.preventDefault();
-//             }
-//             if(!regex.test(element.value)){
-//                 element.value=""
-//                 element.style.border = "2px solid red"
-//                 element.setAttribute('placeholder','This text must contains at least 50 charcters')
-//                 element.classList.add("placeholder-red")
-//                 e.preventDefault();
-//             }
+    addAllPosts.addEventListener('click', (e) => {
+        postsTitle.forEach(element => {
+            if (element.value.trim() == '') {
+                element.value=""
+                element.style.border = "2px solid red"
+                element.setAttribute('placeholder','please fill this feild')
+                element.classList.add("placeholder-red")
+                e.preventDefault();
+            }
+            if(!Titleregex.test(element.value)){
+                element.value=""
+                element.style.border = "2px solid red"
+                element.setAttribute('placeholder','please enter a valid title')
+                element.classList.add("placeholder-red")
+                e.preventDefault();
+            }
+        });
+        postContent.forEach(element => {
+            if (element.value.trim() == '') {
+                element.value=""
+                element.style.border = "2px solid red"
+                element.setAttribute('placeholder','please fill this field')
+                element.classList.add("placeholder-red")
+                e.preventDefault();
+            }
+            if(!regex.test(element.value)){
+                element.value=""
+                element.style.border = "2px solid red"
+                element.setAttribute('placeholder','This text must contains at least 50 charcters')
+                element.classList.add("placeholder-red")
+                e.preventDefault();
+            }
 
-//         });
-//     })
-//         postsTitle.forEach(element => {
-//             element.onclick=()=>{
-//                 if (element.value.trim() == ''){
-//                     element.value=""
-//                     element.style.border = ""
-//                     element.classList.remove("placeholder-red")
-//                 }
-//             }
-//         });
-//         postContent.forEach(element => {
-//             element.onclick=()=>{
-//                 if (element.value.trim() == ''){
-//                     element.value=""
-//                     element.style.border = ""
-//                     element.classList.remove("placeholder-red")
-//                 }
-//             }
-//         });
-// }
+        });
+    })
+        postsTitle.forEach(element => {
+            element.onclick=()=>{
+                if (element.value.trim() == ''){
+                    element.value=""
+                    element.style.border = ""
+                    element.classList.remove("placeholder-red")
+                }
+            }
+        });
+        postContent.forEach(element => {
+            element.onclick=()=>{
+                if (element.value.trim() == ''){
+                    element.value=""
+                    element.style.border = ""
+                    element.classList.remove("placeholder-red")
+                }
+            }
+        });
+}

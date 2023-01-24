@@ -216,7 +216,7 @@ $resultUsers = $users->AllUsers();
                 <div class="mx-4 mt-6">
                     <div>
                         <label for="number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Number of posts you want to add</label>
-                        <input type="number" name="number_posts" min="1" max="10" id="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Number of posts" required>
+                        <input type="number" name="number_posts"  id="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Number of posts" required>
                         <p id="add-error" class="text-red-400 hidden font-bold">please fill this feild</p>
                     </div>
                 </div>

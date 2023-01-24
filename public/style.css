@@ -137,3 +137,8 @@ body{
 .my-width{
     width:20% !important;
 }
+.placeholder-red::placeholder {
+  color: red;
+  font-size: 15px;
+  font-weight: bold;
+  }

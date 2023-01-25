@@ -106,13 +106,13 @@ function deleteCategory(id) {
     document.querySelector("#deleted-idConfirm").value = id
 
 }
-if (document.querySelector("#closedeletedModal")) {
-    document.querySelector("#closedeletedModal").onclick = () => {
+if (document.querySelector("#close-deletedModal")) {
+    document.querySelector("#close-deletedModal").onclick = () => {
         document.querySelector('#delet-modal').classList.add('hidden')
     }
 }
-if (document.querySelector("#ccanceldeletedModal")) {
-    document.querySelector("#canceldeletedModal").onclick = () => {
+if (document.querySelector("#cancel-deletedModal")) {
+    document.querySelector("#cancel-deletedModal").onclick = () => {
         document.querySelector('#delet-modal').classList.add('hidden')
     }
 }
@@ -154,9 +154,10 @@ if (document.querySelector("#close-InfoAlert")) {
         document.querySelector("#my-InfoAlert").classList.add('hidden');
     }
 }
+let regexNum=/^([1-9]|10)$/
 if (document.querySelector('#add-number')) {
     document.querySelector('#add-number').addEventListener('click', (e) => {
-        if (document.querySelector("#number").value == "") {
+        if (!regexNum.test(document.querySelector("#number").value)) {
             document.querySelector("#number").style.border = "2px solid red"
             document.querySelector('#add-error').classList.remove('hidden');
             e.preventDefault();
@@ -168,11 +169,12 @@ if (document.querySelector('#add-number')) {
     }
 }
 let addAllPosts = document.querySelector("#add-AllPosts")
+var regex = /^(?=.*[a-z])(?=.*[A-Z]).{50,}$/;
+var Titleregex = /^.{5,100}$/;
 if (addAllPosts) {
     let postsTitle = document.querySelectorAll(".post-title")
     let postContent = document.querySelectorAll(".post-content")
-    regex = /^(?=.*[a-z])(?=.*[A-Z]).{50,}$/;
-    Titleregex = /^.{5,100}$/;
+    
 
     addAllPosts.addEventListener('click', (e) => {
         postsTitle.forEach(element => {
@@ -202,7 +204,7 @@ if (addAllPosts) {
             if (!regex.test(element.value)) {
                 element.value = ""
                 element.style.border = "2px solid red"
-                element.setAttribute('placeholder', 'This text must contains at least 50 charcters')
+                element.setAttribute('placeholder', 'This text must contains at least lower,upper and  50 charcters')
                 element.classList.add("placeholder-red")
                 e.preventDefault();
             }
@@ -358,8 +360,99 @@ if (document.querySelector("#closeeditProfile-modal")) {
         document.querySelector('#profile-Modal').classList.add("hidden");
     }
 }
-if (document.querySelector("#edit-profile")) {
-    document.querySelector("#edit-profile").onclick = () => {
-        document.querySelector('#profile-Modal').classList.remove("hidden");
+var ProfileModal=document.querySelector('#profile-Modal')
+var editProfile=document.querySelector("#edit-profile")
+if (ProfileModal) {
+    editProfile.onclick = () => {
+        console.log('hal user')
+        ProfileModal.classList.remove("hidden");
     }
+}
+function show(){
+    ProfileModal.classList.remove("hidden");
+}
+
+if (document.querySelector("#update-category")) {
+    document.querySelector("#update-category").addEventListener('click', (e) => {
+        if (document.querySelector("#category_updated").value == "") {
+            document.querySelector("#error-UpdateInput").textContent = "please fill this feild";
+            document.querySelector("#category_updated").style.border = "2px solid red";
+            e.preventDefault()
+        } else
+            if (!nameRegex.test(document.querySelector("#category_updated").value)) {
+                document.querySelector("#error-UpdateInput").textContent = "please enter a valid name";
+                document.querySelector("#category_updated").style.border = "2px solid red";
+                e.preventDefault()
+            }
+        document.querySelector("#category_updated").onclick = () => {
+            document.querySelector("#error-UpdateInput").textContent = "";
+            document.querySelector("#category_updated").style.border = "";
+        }
+    })
+}
+if (document.querySelector("#add")) {
+    document.querySelector('#add').addEventListener('click', (e) => {
+        if (document.querySelector("#category").value == "") {
+            document.querySelector("#error-addInput").textContent = "please fill this field"
+            document.querySelector("#category").style.border = "2px solid red"
+            e.preventDefault()
+        } else
+            if (!nameRegex.test(document.querySelector("#category").value)) {
+                document.querySelector("#error-addInput").textContent = "please enter a valid name"
+                document.querySelector("#category").style.border = "2px solid red"
+                e.preventDefault()
+            }
+        document.querySelector("#category").onclick = () => {
+            document.querySelector("#error-addInput").textContent = ""
+            document.querySelector("#category").style.border = ""
+        }
+    })
+}
+
+function deletePost(id){
+    document.querySelector("#post-idConfirm").value=id;
+    document.querySelector("#delet-post").classList.remove("hidden")
+}
+if(document.querySelector("#close-deletedPost")){
+    document.querySelector("#close-deletedPost").onclick=()=>{
+    document.querySelector("#delet-post").classList.add("hidden")
+    }
+}
+if(document.querySelector("#cancel-deletedPost")){
+    document.querySelector("#cancel-deletedPost").onclick=()=>{
+    document.querySelector("#delet-post").classList.add("hidden")
+    }
+}
+if(document.querySelector("#update-post")){
+    document.querySelector("#update-post").addEventListener('click',(e)=>{
+      
+       if(document.querySelector('#editor').value==''){
+        document.querySelector('#editor').style.border="2px solid red"
+        document.querySelector("#error-textContent").textContent='please fill this fild'
+        e.preventDefault()
+       }else
+       if(!regex.test(document.querySelector('#editor').value)){
+        document.querySelector("#error-textContent").textContent='the content must contains at least 50 charcters'
+        document.querySelector('#editor').style.border="2px solid red"
+        e.preventDefault()
+       }
+       document.querySelector('#editor').onclick=()=>{
+        document.querySelector('#editor').style.border=""
+        document.querySelector("#error-textContent").textContent=''
+       }
+       if(document.querySelector('#title').value==''){
+        document.querySelector('#title').style.border="2px solid red"
+        document.querySelector("#error-titleContent").textContent='please fill this fild'
+        e.preventDefault()
+       }else
+       if(!Titleregex.test(document.querySelector('#title').value)){
+        document.querySelector("#error-titleContent").textContent='Invalid title'
+        document.querySelector('#title').style.border="2px solid red"
+        e.preventDefault()
+       }
+       document.querySelector('#title').onclick=()=>{
+        document.querySelector('#title').style.border=""
+        document.querySelector("#error-titleContent").textContent=''
+       }
+    })
 }

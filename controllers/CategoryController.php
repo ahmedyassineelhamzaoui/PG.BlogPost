@@ -9,12 +9,18 @@ class CategoryController{
 		if(isset($_POST['add'])){
 			$data=array($_POST["category_name"]);
 			$result=Category::insert($data);
-            if($result==='ok'){
-				Session::set('success','Category added succesdfuly');
+			if($result=='this category already exists'){
+				Session::set('info',$result);
 				header('location:category');
 			}else{
-				echo $result;
+				if($result==='ok'){
+					Session::set('success','Category added succesdfuly');
+					header('location:category');
+				}else{
+					echo $result;
+				}
 			}
+          
 		}
 	}
 	public function deleteCategory(){

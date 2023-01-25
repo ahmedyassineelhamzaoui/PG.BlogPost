@@ -12,10 +12,9 @@ class PostsController{
 			$title=$_POST["post-title"];
 			$content=$_POST["post-content"];
 			$category=$_POST['post-category'];
+			$regex = "/^.{1,100}$/";
+			$regexContent = "/^.{50,}$/";;
             foreach($title as $index=>$titles){
-				$regex = "/^.{1,100}$/";
-				$regexContent = "/^(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9 ,.-]{50,}$/";
-
 				if (!preg_match($regex, $titles)){
 					Session::set('info','title is not valid');
 					header('location:posts');
@@ -25,9 +24,12 @@ class PostsController{
 					header('location:posts');
 				}
 				else{
+					if($filename[$index]==''){
+						$filename[$index]='empty.jpg';
+					}
 					$data=array($titles,$content[$index],$filename[$index],$category[$index]);
 					$result=Post::insert($data);
-	
+	                
 					if($result==='ok'){
 						move_uploaded_file($image[$index],'./public/images/'.$filename[$index]);
 						Session::set('success','Post added succesdfuly');
@@ -42,7 +44,7 @@ class PostsController{
 	}
 	public function deletePosts(){
 		if(isset($_POST["delete-post"])){
-			$data=array($_POST["id_post"]);
+			$data=array($_POST["post-idConfirm"]);
             $result=Post::delete($data);
 			if($result==='ok'){
 				Session::set('success','Post has been deleted succefully');
@@ -58,10 +60,9 @@ class PostsController{
 			$image=$_FILES["picture"]['tmp_name'];
 			$data=array($_POST["title"],$_POST["update-content"],$filename,$_POST["post-category"],$_POST['post-id']);
 			$result=Post::update($data);
+			move_uploaded_file($image,'./public/images/'.$filename);
 			if($result==='ok'){
-				move_uploaded_file($image,'./public/images/'.$filename);
-				Session::set('success','Post has been updated succefully');
-
+				Session::set('success','Post has been Updated succefully');
 				header('location:posts');
 			}else{
 				echo $result;

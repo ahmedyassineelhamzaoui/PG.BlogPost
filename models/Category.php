@@ -10,17 +10,28 @@ class Category{
 	static public function getUnique(){
 		$stmt = DB::connect()->prepare('SELECT DISTINCT  id_category,name FROM category GROUP BY name');
 		$stmt->execute();
-		return $stmt->fetchAll();
+		if($stmt->rowCount()==0){
+			return 0;
+		}else{
+			return $stmt->fetchAll(PDO::FETCH_ASSOC);
+		}
 		$stmt = null;
 	}
 	static public function insert($data){
-		$stmt = DB::connect()->prepare("INSERT INTO category(name) VALUES(?)");
-		if($stmt->execute($data)){
-			return 'ok';
+		$var = DB::connect()->prepare("SELECT * FROM category WHERE name=?");
+		$var->execute($data);
+		if($var->rowCount()>0){
+			return "this category already exists";
 		}else{
-            return 'error';
+			$stmt = DB::connect()->prepare("INSERT INTO category(name) VALUES(?)");
+			if($stmt->execute($data)){
+				return 'ok';
+			}else{
+				return 'error';
+			}
+			$stmt=null;
 		}
-		$stmt=null;
+		
 	}
 	static public function delete($data){
 		$stmt = DB::connect()->prepare("DELETE FROM category WHERE 	id_category=? ");
@@ -50,7 +61,11 @@ class Category{
 		ON sub.co = max_table.max_co;
 		');
 		$stmt->execute();
-		return $stmt->fetch(PDO::FETCH_ASSOC);
+		if($stmt->rowCount()==0){
+			return 0;
+		}else{
+			return $stmt->fetch(PDO::FETCH_ASSOC);
+		}
 	}
 	static public function GetSearchCategory($data){
       $stmt=DB::connect()->prepare('SELECT * FROM category WHERE name like ? OR id_category like ?');

@@ -24,7 +24,7 @@ $result = $user->ConnectedUser();
             <li><a href="category"><i class="fa-solid fa-table-columns"></i><span class="words">Category</span></a></li>
             <li><a href="posts"><i class="fa-solid fa-blog"></i><span  class="words">Posts</span></a></li>
             <li><a href="users"><i class="fa-solid fa-users"></i><span  class="words">Users</span></a></li>
-            <li><a class="cursor-pointer" id="edit-profile"><i class="fa-solid fa-address-card"></i><span class="words">Profile</span></a></li>
+            <li><a class="cursor-pointer"  id="edit-profile"><i class="fa-solid fa-address-card"></i><span class="words">Profile</span></a></li>
             <li><a class="logout" href="logout"><i class="fa-solid fa-right-from-bracket"></i><span class="words">logout</span></a></li>
         </ul>
     </div>

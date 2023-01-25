@@ -24,14 +24,22 @@ if (isset($_POST['search'])) {
         $param=0;
         $data = $post->getAllPosts($param);
     }
-
+    $users = new UsersController();
+    $connectedUser=$users->ConnectedUser();
+    if(isset($_POST['edit-profile'])){
+        $users->UpdateProfile();
+    }
 $users = new UsersController();
 $resultPosts = $post->AllPosts();
 $resultCategory = $category->AllCategorys();
-$bestCategory = $category->getBestCategory()['name'];
+if($category->getBestCategory()==0){
+    $bestCategory = "no category";
+}else{
+    $bestCategory = $category->getBestCategory()['name'];
+}
 $resultUsers = $users->AllUsers();
 ?>
-<!-- <header class="dashboard-header z-10">
+<header class="dashboard-header z-10">
     <nav class="nav-bar flex justify-between">
         <div class="search-bar w-80">
             <form method="post">
@@ -51,7 +59,7 @@ $resultUsers = $users->AllUsers();
             <i class="w-6 h-6 fa-solid fa-bars"></i>
         </div>
     </nav>
-</header> -->
+</header>
 <section class="my-section mt-20 flex justify-center">
     <div class="w-11/12">
         <div class=" mb-4  w-full grid row gap-4  xl:grid-cols-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ">
@@ -136,10 +144,10 @@ $resultUsers = $users->AllUsers();
                         foreach ($data as $post) { ?>
                             <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                                 <td class="px-6 py-4">
-                                    <?php echo $post['title'] ?>
+                                    <?php echo substr($post['title'],0,15).'...' ?>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <?php echo $post['content'] ?>
+                                    <?php echo substr($post['content'],0,10).'...'  ?>
                                 </td>
                                 <td class="px-6 py-4">
                                     <?php echo '<img style="width:100px;height:80px" src="./public/images/' . $post['picture'] . '" alt="">' ?>
@@ -159,7 +167,7 @@ $resultUsers = $users->AllUsers();
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
                                                 </svg>
                                             </button>
-                                            <button name="delete-post" type="submit">
+                                            <button  onclick='deletePost(<?= $post["id"] ?>)' type="button">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 cursor-pointer text-red-400">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
                                                 </svg>
@@ -216,8 +224,8 @@ $resultUsers = $users->AllUsers();
                 <div class="mx-4 mt-6">
                     <div>
                         <label for="number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Number of posts you want to add</label>
-                        <input type="number" name="number_posts"  id="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Number of posts" required>
-                        <p id="add-error" class="text-red-400 hidden font-bold">please fill this feild</p>
+                        <input type="number" min="1" max="10" name="number_posts"  id="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Number of posts" required>
+                        <p id="add-error" class="text-red-400 hidden font-bold">Invalid number</p>
                     </div>
                 </div>
                 <!-- Modal footer -->
@@ -265,12 +273,14 @@ $resultUsers = $users->AllUsers();
                 <div class="mx-4 mb-2 pt-2">
                     <label for="title" class="block mb-2 text-md font-medium text-gray-900 dark:text-white">Title</label>
                     <input id="title" type="text" name="title" class="title bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="title" required>
+                    <p id="error-titleContent" class="text-red-400 font-bold"></p>
                 </div>
                 <div class="mx-4 mt-6">
                     <div class="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
                             <label for="editor" class="sr-only">Publish post</label>
                             <textarea id="editor" name="update-content" rows="8" class="block w-full px-0 text-sm text-gray-800 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" placeholder="Write an article..." required></textarea>
-                    </div>
+                    <p id="error-textContent" class="text-red-400 font-bold"></p>
+                        </div>
                 </div>
                 <div class="mx-4 mb-2 flex justify-around">
                     <div>
@@ -289,8 +299,66 @@ $resultUsers = $users->AllUsers();
                 </div>
                 <!-- Modal footer -->
                 <div class="flex items-center justify-end p-4 mt-4 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                    <button name="update-post" type="submit" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Update</button>
+                    <button id="update-post" name="update-post" type="submit" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Update</button>
                     <button id="declineUpdate-modal" type="button" class="text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Decline</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="delet-post" class="fixed hidden top-0 left-0 w-full h-full flex items-center justify-center" style="background-color: rgba(0,0,0,0.5);">
+  <div class="relative rounded-lg p-6 bg-white">
+    <div class="flex justify-between items-center">
+      <h3 class="text-lg font-medium">Delete Confirmation</h3>
+      <button class="text-gray-500 font-medium cursor-pointer" id="close-deletedPost"><i class="fa-solid text-lg fa-rectangle-xmark"></i></button>
+    </div>
+    <div class="mt-4">
+      <p>Are you sure you want to delete this Posts?</p>
+    </div>
+    <div class="flex justify-end mt-4">
+    <form method="post">
+      <input type="hidden" name="post-idConfirm" id="post-idConfirm">
+      <button type="button" class="px-4 py-2 rounded-md text-white bg-gray-600" id="cancel-deletedPost">Cancel</button>
+      <button class="px-4 py-2 rounded-md text-white bg-red-600" type="submit" name="delete-post" >Delete</button>
+    </form>
+    </div>
+  </div>
+</div>
+<div id="profile-Modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="pt-32 hidden  fixed flex justify-center items-center top-0 left-0 right-0 z-50  w-full p-4 overflow-x-hidden overflow-y-auto bg-black bg-opacity-50 h-screen ">
+    <div class="relative w-full lg:w-2/5 h-full max-w-2xl  md:h-auto">
+        <!-- Modal content -->
+        <div class="bg-white rounded-lg shadow dark:bg-gray-700">
+            <!-- Modal header -->
+            <div class="flex justify-between p-4 border-b  dark:border-gray-600">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                    Update Profile
+                </h3>
+                <button id="closeeditProfile-modal" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="staticModal">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <form method="post" >
+                    <input type="hidden" value="<?=$connectedUser->id?>" name="user-id" >
+                <div class="mx-4 mb-2 pt-2">
+                    <label for="user-name" class="block mb-2 text-md font-medium text-gray-900 dark:text-white">Your Name</label>
+                    <input value="<?=$connectedUser->name?>" id="user-name" type="text" name="user-name" class="title bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name" required>
+                </div>
+                <div class="mx-4 mb-2 pt-2">
+                    <label for="user-email" class="block mb-2 text-md font-medium text-gray-900 dark:text-white">Your email</label>
+                    <input value="<?=$connectedUser->email?>" id="user-email" type="email" name="user-email" class="title bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="email" required>
+                </div>
+                <div class="mx-4 mb-2 pt-2">
+                    <label for="user-password" class="block mb-2 text-md font-medium text-gray-900 dark:text-white">Your Password</label>
+                    <input value="<?=$connectedUser->password?>" id="user-name" type="password" name="user-password" class="title bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="password" required>
+                </div>
+                <!-- Modal footer -->
+                <div class="flex items-center justify-end p-4 mt-4 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                    <button name="edit-profile" type="submit" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Update</button>
+                    <button id="declineProfile-modal" type="button" class="text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Decline</button>
                 </div>
             </form>
         </div>

@@ -1,6 +1,7 @@
 <?php
 require_once('includes/dashboard.php');
 $users = new UsersController();
+$connectedUser=$users->ConnectedUser();
 if (isset($_POST['delete-user'])) {
     $users = new UsersController();
     $users->deleteUser();
@@ -10,7 +11,11 @@ $resultPosts = $postNumber->AllPosts();
 
 $categoryNumber = new CategoryController();
 $resultCategory = $categoryNumber->AllCategorys();
-$bestCategory = $categoryNumber->getBestCategory()['name'];
+if($categoryNumber->getBestCategory()==0){
+    $bestCategory = "no category";
+}else{
+    $bestCategory = $category->getBestCategory()['name'];
+}
 $resultUsers = $users->AllUsers();
 if (isset($_POST['user-search'])) {
     $mydata = $users->UserSearch();
@@ -18,7 +23,6 @@ if (isset($_POST['user-search'])) {
     $mydata = $users->getAllUsers();
 }
 
-$connectedUser=$users->ConnectedUser();
 if(isset($_POST['edit-profile'])){
     $users->UpdateProfile();
 }

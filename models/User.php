@@ -2,12 +2,18 @@
 
 class User{
     static public function createUser($data){
+
         $stmt = DB::connect()->prepare('INSERT INTO users(name,email,password,repassword) VALUES(?,?,?,?)');
         if($stmt->execute($data)){
             return 'ok';
         }else{
             return 'error';
         }
+    }
+    static public function checkUser($data){
+        $stmt=DB::connect()->prepare('SELECT * FROM users WHERE email=?');
+        $stmt->execute($data);
+        return $stmt->rowCount();
     }
     static public function loginUser($data){
         try{

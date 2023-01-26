@@ -1,4 +1,7 @@
 <?php
+if(isset($_SESSION['id'])){
+    header('location:posts');
+}
 if (isset($_POST["signup"])) {
     $compte = new UsersController();
     $compte->register();

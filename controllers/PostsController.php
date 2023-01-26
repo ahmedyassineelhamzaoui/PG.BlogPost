@@ -1,5 +1,12 @@
 <?php
 class PostsController{
+    
+     public $id;
+	 public $title;
+	 public $picture;
+	 public $content;
+	 public $post_category;
+
 
 	public function getAllPosts(){
 		$post = Post::getAll();

@@ -1,6 +1,13 @@
 <?php
 class UsersController
 {
+
+    public $id;
+    public $name;
+    public $email;
+    public $passwordU;
+
+
     public function register()
     {
         if (isset($_POST['signup'])) {
@@ -10,9 +17,14 @@ class UsersController
             $emailRegex = '/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/';
             $passwordRegex = "/^[a-zA-Z0-9-_.@#]{8,14}$/";
             $nameRegex="/^[a-zA-Z ]{2,100}$/";
-            $password = password_hash($_POST['password-singup'], PASSWORD_BCRYPT, $options);
+            $name=$_POST['name'];
+            $email=$_POST['email-signup'];
+            $passwordU=$_POST['password-singup'];
+
+            $password = password_hash($passwordU, PASSWORD_BCRYPT, $options);
             $repassword = password_hash($_POST['password-singup-repeat'], PASSWORD_BCRYPT, $options);
-            $data = array($_POST['name'], $_POST['email-signup'], $password, $repassword);
+            $data = array($name,$email, $password, $repassword);
+
             if(!preg_match($nameRegex , $_POST['name'])){
                 Session::set('Error', 'invalid name');
                 header('location:register');
@@ -29,11 +41,18 @@ class UsersController
                 header('location:register');
             }
             else{
-                $result = User::createUser($data);
-                if ($result == 'ok') {
-                    Session::set('success', 'Compte has ben created succesufully');
-                    header('location:login');
+                $exist=User::checkUser(array($_POST['email-signup']));
+                if($exist!=0){
+                   Session::set('info','this email is allready token');
+                   header('location:register');
+                }else{
+                    $result = User::createUser($data);
+                    if ($result == 'ok') {
+                        Session::set('success', 'Compte has ben created succesufully');
+                        header('location:login');
+                    }
                 }
+               
             }
         
            
@@ -114,15 +133,22 @@ class UsersController
     public function deleteUser()
     {
         if (isset($_POST['delete-user'])) {
-            $data = array($_POST['user-id']);
-            $result = User::delete($data);
-            if ($result == 'ok') {
-                Session::set('success', 'User has ben deleted successufly');
-                header('location:users');
-            } else {
-                Session::set('info', 'something went wrong');
-                header('location:users');
+            $data = array($_POST['deleted-user']);
+            if($_POST["deleted-user"]==$_POST["connect-user"]){
+                User::delete($data);
+                header('location:logout');
+
+            }else{
+                $result = User::delete($data);
+                if ($result == 'ok') {
+                    Session::set('success', 'User has ben deleted successufly');
+                    header('location:users');
+                } else {
+                    Session::set('info', 'something went wrong');
+                    header('location:users');
+                }
             }
+            
         }
     }
     public function AllUsers(){

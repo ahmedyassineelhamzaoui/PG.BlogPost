@@ -175,8 +175,6 @@ if (addAllPosts) {
     let postsTitle = document.querySelectorAll(".post-title")
     let postContent = document.querySelectorAll(".post-content")
     addAllPosts.addEventListener('click', (e) => {
-      
-        
         postsTitle.forEach(element => {
             if (element.value.trim() == '') {
                 element.value = ""
@@ -232,7 +230,7 @@ if (addAllPosts) {
 }
 
 let emailRegex = /(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/
-let passwordRegex = /^[a-zA-Z0-9-_.@#]{8,14}$/
+let passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/
 let nameRegex = /^[a-zA-Z ]{2,100}$/
 
 let Signupname = document.querySelector("#name");
@@ -454,4 +452,24 @@ if(document.querySelector("#update-post")){
         document.querySelector("#error-titleContent").textContent=''
        }
     })
+}
+function deleteUser(id,idC){
+  document.querySelector("#deleted-user").value=id
+  document.querySelector("#connect-user").value=idC
+  if(id==idC){
+    document.querySelector("#message-confirmation").innerHTML="Are you sure you want to delete your account?"
+  }else{
+    document.querySelector("#message-confirmation").innerHTML="Are you sure you want to delete this User?"
+  }
+  document.querySelector("#delet-user").classList.remove('hidden')
+}
+if(document.querySelector("#close-deletedUser")){
+    document.querySelector("#close-deletedUser").onclick=()=>{
+  document.querySelector("#delet-user").classList.add('hidden')
+    }
+}
+if(document.querySelector("#cancel-deletedUser")){
+    document.querySelector("#cancel-deletedUser").onclick=()=>{
+  document.querySelector("#delet-user").classList.add('hidden')
+    }
 }

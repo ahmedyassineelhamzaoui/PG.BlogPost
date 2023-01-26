@@ -1,5 +1,7 @@
 <?php
 require_once('includes/dashboard.php');
+$title="useres";
+
 $users = new UsersController();
 $connectedUser=$users->ConnectedUser();
 if (isset($_POST['delete-user'])) {
@@ -38,7 +40,7 @@ if(isset($_POST['edit-profile'])){
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                         </svg>
                     </div>
-                    <input type="search" name="input-search" id="default-search" class="block  w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg  focus:ring-blue-500 focus:border-blue-500 bg-gray-700 border-gray-600 placeholder-gray-400 text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search" required>
+                    <input type="search" name="input-search" id="default-search" class="block  w-full p-4 pl-10 text-sm  border border-gray-300 rounded-lg  focus:ring-blue-500 focus:border-blue-500 bg-gray-700 border-gray-600 placeholder-gray-400 text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search" required>
                     <button type="submit" name="user-search" class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
                 </div>
             </form>
@@ -49,11 +51,11 @@ if(isset($_POST['edit-profile'])){
     </nav>
 </header>
 <section class="my-section mt-20 flex justify-center">
-    <div class="w-4/5">
+    <div class="w-11/12">
         <div class=" mb-4  w-full grid row gap-4  xl:grid-cols-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ">
             <div class='bg-gray-600 shadow h-24 rounded flex justify-around items-center font-bold'>
                 <div class="text-center">
-                    <p>Users</p>
+                    <p class="text-yellow-500">Users</p>
                     <i class="text-yellow-500 fa-solid fa-users"></i>
                 </div>
                 <div>
@@ -62,7 +64,7 @@ if(isset($_POST['edit-profile'])){
             </div>
             <div class='bg-gray-600 shadow h-24  rounded flex justify-around font-bold  items-center'>
                 <div class="text-center">
-                    <p>Posts</p>
+                    <p class="text-blue-500">Posts</p>
                     <i class="text-blue-500 fa-solid fa-blog"></i>
                 </div>
                 <div>
@@ -71,7 +73,7 @@ if(isset($_POST['edit-profile'])){
             </div>
             <div class='bg-gray-600 shadow h-24  rounded flex justify-around font-bold items-center  '>
                 <div class="text-center">
-                    <p>Categorys</p>
+                    <p class="text-pink-500">Categorys</p>
                     <i class="text-pink-500 fa-solid fa-braille"></i>
                 </div>
                 <div>
@@ -80,7 +82,7 @@ if(isset($_POST['edit-profile'])){
             </div>
             <div class='card bg-gray-600 shadow h-24  rounded flex justify-around font-bold items-center'>
                 <div class="text-center">
-                    <p>Best Category</p>
+                    <p class="text-green-500">Best Category</p>
                     <i class="text-green-500 fa-solid fa-fire"></i>
                 </div>
                 <div>
@@ -132,16 +134,13 @@ if(isset($_POST['edit-profile'])){
                                     <?= $user['password'] ?>
                                 </td>
                                 <td class="px-6 py-4 text-center">
-                                    <form method="post">
-                                        <input type="hidden" name="user-id" value="<?= $user['id'] ?>">
                                         <div class="flex">
-                                            <button name="delete-user" type="submit">
+                                            <button onclick="deleteUser(<?= $user['id'] ?>,<?= $_SESSION['id'] ?>)" name="delete-user" type="submit">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 cursor-pointer text-red-400">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
                                                 </svg>
                                             </button>
                                         </div>
-                                    </form>
                                 </td>
                             </tr>
                     <?php }
@@ -188,6 +187,26 @@ if(isset($_POST['edit-profile'])){
                     <button name="edit-profile" type="submit" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Update</button>
                     <button id="declineProfile-modal" type="button" class="text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Decline</button>
                 </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="delet-user" class="fixed z-50 hidden top-0 left-0 w-full h-full flex items-center justify-center" style="background-color: rgba(0,0,0,0.5);">
+    <div class="relative rounded-lg p-6 bg-white">
+        <div class="flex justify-between items-center">
+            <h3 class="text-lg font-medium">Delete Confirmation</h3>
+            <button class="text-gray-500 font-medium cursor-pointer" id="close-deletedUser"><i class="fa-solid text-lg fa-rectangle-xmark"></i></button>
+        </div>
+        <div class="mt-4">
+            <p id="message-confirmation">Are you sure you want to delete this User?</p>
+        </div>
+        <div class="flex justify-end mt-4">
+            <form method="post">
+                <input type="hidden" name="deleted-user" id="deleted-user">
+                <input type="hidden" name="connect-user" id="connect-user">
+                <button type="button" class="px-4 py-2 rounded-md text-white bg-gray-600" id="cancel-deletedUser">Cancel</button>
+                <button class="px-4 py-2 rounded-md text-white bg-red-600" type="submit" name="delete-user">Delete</button>
             </form>
         </div>
     </div>

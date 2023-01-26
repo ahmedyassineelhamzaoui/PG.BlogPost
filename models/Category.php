@@ -2,7 +2,7 @@
 class Category{
 
 	static public function getAll(){
-		$stmt = DB::connect()->prepare('SELECT * FROM category');
+		$stmt = DB::connect()->prepare('SELECT * FROM category  ');
 		$stmt->execute();
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 		$stmt = null;
@@ -55,11 +55,19 @@ class Category{
 		return $stmt->rowCount();
 	}
     static public function BestCategory(){
-		$stmt=DB::connect()->prepare('SELECT name
-		FROM (SELECT name, COUNT(*) as co FROM category GROUP BY name) sub
-		JOIN (SELECT MAX(co) as max_co FROM (SELECT name,COUNT(*) as co FROM category GROUP BY name) as sub) max_table
-		ON sub.co = max_table.max_co;
-		');
+		$stmt=DB::connect()->prepare('SELECT name FROM
+		(
+			SELECT name,count(*) count1 from post p inner join category c 
+			on p.post_category=c.id_category group by name
+		)tab
+		inner join 
+		(
+		SELECT MAX(count1) max_count FROM (
+			SELECT name,count(*) count1 from post p inner join category c 
+			on p.post_category=c.id_category group by name
+			)tab
+		)tab2
+		on tab2.max_count=tab.count1');
 		$stmt->execute();
 
 		if($stmt->rowCount()==0){

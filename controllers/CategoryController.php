@@ -1,13 +1,18 @@
 <?php
 class CategoryController{
+    
+    public $id_category;
+	public $name;
+
 
 	public function getAllCategorys(){
-		$category = Category::getUnique();
+		$category = Category::getAll();
 		return $category;
 	}
 	public function addCategory(){
 		if(isset($_POST['add'])){
-			$data=array($_POST["category_name"]);
+			$name=$_POST["category_name"];
+			$data=array($name);
 			$result=Category::insert($data);
 			if($result=='this category already exists'){
 				Session::set('info',$result);
@@ -37,7 +42,8 @@ class CategoryController{
 	}
 	public function updateCategory(){
 		if(isset($_POST['update-category'])){
-			$data=array($_POST["category_updated"],$_POST["category-id"]);
+			$id_category=$_POST["category-id"];
+			$data=array($_POST["category_updated"],$id_category);
 			$result=Category::update($data);
 			if($result==='ok'){
 				Session::set('success','Category has been updated succesdfuly');

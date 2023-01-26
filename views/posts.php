@@ -1,5 +1,6 @@
 <?php
 require_once('includes/dashboard.php');
+$title="posts";
 
 $post = new PostsController();
 $category = new CategoryController();
@@ -50,7 +51,7 @@ $resultUsers = $users->AllUsers();
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                         </svg>
                     </div>
-                    <input type="search" name="input-search" id="default-search" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search" required>
+                    <input type="search" name="input-search" id="default-search" class="block w-full p-4 pl-10 text-sm text-white border border-gray-300 rounded-lg bg-gray-700 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search" required>
                     <button type="submit" name="search" class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
                 </div>
             </form>
@@ -65,7 +66,7 @@ $resultUsers = $users->AllUsers();
     <div class=" mb-4  w-full grid row gap-4  xl:grid-cols-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ">
             <div class='bg-gray-600 shadow h-24 rounded flex justify-around items-center font-bold'>
                 <div class="text-center">
-                    <p>Users</p>
+                    <p class="text-yellow-500">Users</p>
                     <i class="text-yellow-500 fa-solid fa-users"></i>
                 </div>
                 <div>
@@ -74,7 +75,7 @@ $resultUsers = $users->AllUsers();
             </div>
             <div class='bg-gray-600 shadow h-24  rounded flex justify-around font-bold  items-center'>
                 <div class="text-center">
-                    <p>Posts</p>
+                    <p class="text-blue-500">Posts</p>
                     <i class="text-blue-500 fa-solid fa-blog"></i>
                 </div>
                 <div>
@@ -83,7 +84,7 @@ $resultUsers = $users->AllUsers();
             </div>
             <div class='bg-gray-600 shadow h-24  rounded flex justify-around font-bold items-center  '>
                 <div class="text-center">
-                    <p>Categorys</p>
+                    <p class="text-pink-500">Categorys</p>
                     <i class="text-pink-500 fa-solid fa-braille"></i>
                 </div>
                 <div>
@@ -92,7 +93,7 @@ $resultUsers = $users->AllUsers();
             </div>
             <div class='card bg-gray-600 shadow h-24  rounded flex justify-around font-bold items-center'>
                 <div class="text-center">
-                    <p>Best Category</p>
+                    <p class="text-green-500">Best Category</p>
                     <i class="text-green-500 fa-solid fa-fire"></i>
                 </div>
                 <div>
@@ -182,9 +183,9 @@ $resultUsers = $users->AllUsers();
             </table>
         </div>
         <?php
-        $numberOfButtons =ceil($resultPosts / 4);
+        // $numberOfButtons =ceil($resultPosts / 4);
         ?>
-        <div class="flex justify-end mb-3">
+        <!-- <div class="flex justify-end mb-3">
             <div>
                 <button type="submit" class="px-4 py-2 rounded bg-blue-600 font-bold text-white hover:bg-blue-700"><i class="fa-solid fa-caret-left"></i></button>
 
@@ -197,7 +198,7 @@ $resultUsers = $users->AllUsers();
                 ?>
                 <button type="submit" class="px-4 py-2 rounded bg-blue-600 font-bold text-white hover:bg-blue-700"><i class="fa-sharp fa-solid fa-caret-right"></i></button>
             </div>
-        </div>
+        </div> -->
     </div>
 </section>
 </main>
@@ -307,7 +308,7 @@ $resultUsers = $users->AllUsers();
     </div>
 </div>
 
-<div id="delet-post" class="fixed hidden top-0 left-0 w-full h-full flex items-center justify-center" style="background-color: rgba(0,0,0,0.5);">
+<div id="delet-post" class="fixed z-50 hidden top-0 left-0 w-full h-full flex items-center justify-center" style="background-color: rgba(0,0,0,0.5);">
   <div class="relative rounded-lg p-6 bg-white">
     <div class="flex justify-between items-center">
       <h3 class="text-lg font-medium">Delete Confirmation</h3>

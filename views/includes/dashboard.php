@@ -18,7 +18,7 @@ $result = $user->ConnectedUser();
             <img src="./public/images/profile.png" alt="">
         </div >
         <div class="user-connect">
-            <p><?= $result->name ?><br>Admin</p>
+            <p class="text-white"><?= $result->name ?><br>Admin</p>
         </div>
         <ul class="list-content1">
             <li><a href="category"><i class="fa-solid fa-table-columns"></i><span class="words">Category</span></a></li>

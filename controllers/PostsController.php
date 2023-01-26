@@ -1,8 +1,8 @@
 <?php
 class PostsController{
 
-	public function getAllPosts($param){
-		$post = Post::getAll($param);
+	public function getAllPosts(){
+		$post = Post::getAll();
 		return $post;
 	}
 	public function addPost(){
@@ -58,8 +58,15 @@ class PostsController{
 		if(isset($_POST["update-post"])){
 			$filename=$_FILES["picture"]['name'];
 			$image=$_FILES["picture"]['tmp_name'];
-			$data=array($_POST["title"],$_POST["update-content"],$filename,$_POST["post-category"],$_POST['post-id']);
-			$result=Post::update($data);
+			if(empty($filename)){
+				$param=0;
+				$data=array($_POST["title"],$_POST["update-content"],$_POST["post-category"],$_POST['post-id']);
+			}else{
+				$param=1;
+				$data=array($_POST["title"],$_POST["update-content"],$filename,$_POST["post-category"],$_POST['post-id']);
+			}
+			$result=Post::update($data,$param);
+
 			move_uploaded_file($image,'./public/images/'.$filename);
 			if($result==='ok'){
 				Session::set('success','Post has been Updated succefully');

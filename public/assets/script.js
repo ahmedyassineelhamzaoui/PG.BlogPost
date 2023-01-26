@@ -169,14 +169,14 @@ if (document.querySelector('#add-number')) {
     }
 }
 let addAllPosts = document.querySelector("#add-AllPosts")
-var regex = /^(?=.*[a-z])(?=.*[A-Z]).{50,}$/;
+var regex = /^([a-zA-Z]).{50,}$/;
 var Titleregex = /^.{5,100}$/;
 if (addAllPosts) {
     let postsTitle = document.querySelectorAll(".post-title")
     let postContent = document.querySelectorAll(".post-content")
-    
-
     addAllPosts.addEventListener('click', (e) => {
+      
+        
         postsTitle.forEach(element => {
             if (element.value.trim() == '') {
                 element.value = ""
@@ -204,7 +204,7 @@ if (addAllPosts) {
             if (!regex.test(element.value)) {
                 element.value = ""
                 element.style.border = "2px solid red"
-                element.setAttribute('placeholder', 'This text must contains at least lower,upper and  50 charcters')
+                element.setAttribute('placeholder', 'This text must contains at least  50 charcters')
                 element.classList.add("placeholder-red")
                 e.preventDefault();
             }
@@ -364,7 +364,6 @@ var ProfileModal=document.querySelector('#profile-Modal')
 var editProfile=document.querySelector("#edit-profile")
 if (ProfileModal) {
     editProfile.onclick = () => {
-        console.log('hal user')
         ProfileModal.classList.remove("hidden");
     }
 }

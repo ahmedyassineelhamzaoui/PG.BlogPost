@@ -1,6 +1,6 @@
 body{
     /* overflow-y: hidden !important; */
-    background-color:rgb(216, 216, 218) ;
+    background-color:#171622 ;
  }
  /* login page */
 .login-page {
@@ -17,22 +17,25 @@ body{
     position: fixed;
     width:70px;
     height: 100%;
-    background-color: rgb(255, 255, 255);
+    background-color: #212130;
     top:0;
     left:0;
     transition: .5s;
     z-index:10;
-    box-shadow: 2px 0px 10px 1px  rgb(161, 160, 160);
+    box-shadow: 2px 0px 10px 1px  rgb(2, 2, 2);
 }
 .side-bar .sidebar-content{
   display: flex;
   flex-direction: column;
   height: 100%;
 }
+.search-bar{
+    background-color: #212130 !important;
+}
    
 .side-bar .sidebar-content .icon{
     padding:1px 6px;
-    background-color: #0ea5e9;
+    background-color: #2563eb;
     cursor: pointer;
     font-size: 18px;
     color: azure;
@@ -68,7 +71,7 @@ body{
 
 .side-bar .sidebar-content  li a{
     margin-top:10px;
-    background-color:#0ea5e9;
+    background-color:#2563eb;
     width:90%;
     margin-left: 5%;
     display: flex;
@@ -92,10 +95,10 @@ body{
 .dashboard-header{
     position:fixed;
     width:100%;
-    background-color: rgb(255, 255, 255);
+    background-color: #212130;
     height:60px;
     top: 0;
-    box-shadow: 0px 2px 20px gray ;
+    box-shadow: 0px 2px 20px rgb(13, 13, 13) ;
 }
 .dashboard-header .nav-bar{
     margin-right: 10px;

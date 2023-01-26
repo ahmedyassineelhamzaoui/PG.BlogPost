@@ -61,9 +61,11 @@ class Category{
 		ON sub.co = max_table.max_co;
 		');
 		$stmt->execute();
+
 		if($stmt->rowCount()==0){
 			return 0;
 		}else{
+			// die(var_dump($stmt->fetch(PDO::FETCH_ASSOC)));
 			return $stmt->fetch(PDO::FETCH_ASSOC);
 		}
 	}

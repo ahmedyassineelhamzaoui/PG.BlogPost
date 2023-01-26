@@ -14,7 +14,7 @@ $resultCategory = $categoryNumber->AllCategorys();
 if($categoryNumber->getBestCategory()==0){
     $bestCategory = "no category";
 }else{
-    $bestCategory = $category->getBestCategory()['name'];
+    $bestCategory = $categoryNumber->getBestCategory()['name'];
 }
 $resultUsers = $users->AllUsers();
 if (isset($_POST['user-search'])) {
@@ -29,16 +29,16 @@ if(isset($_POST['edit-profile'])){
 ?>
 <header class="dashboard-header">
     <nav class="nav-bar flex justify-between">
-        <div class="search-bar w-80">
-            <form method="post">
-                <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+        <div class="search-bar w-80 ">
+            <form method="post" >
+                <label for="default-search " class="mb-2  text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                 <div class="relative">
-                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <div class="absolute  inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                         <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                         </svg>
                     </div>
-                    <input type="search" name="input-search" id="default-search" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search" required>
+                    <input type="search" name="input-search" id="default-search" class="block  w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg  focus:ring-blue-500 focus:border-blue-500 bg-gray-700 border-gray-600 placeholder-gray-400 text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search" required>
                     <button type="submit" name="user-search" class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
                 </div>
             </form>
@@ -51,49 +51,49 @@ if(isset($_POST['edit-profile'])){
 <section class="my-section mt-20 flex justify-center">
     <div class="w-4/5">
         <div class=" mb-4  w-full grid row gap-4  xl:grid-cols-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ">
-            <div class='bg-white shadow h-24 rounded flex justify-around items-center font-bold'>
+            <div class='bg-gray-600 shadow h-24 rounded flex justify-around items-center font-bold'>
                 <div class="text-center">
                     <p>Users</p>
-                    <i class="fa-solid fa-users"></i>
+                    <i class="text-yellow-500 fa-solid fa-users"></i>
                 </div>
                 <div>
-                    <p><?= $resultUsers ?></p>
+                    <p class="text-white"><?= $resultUsers ?></p>
                 </div>
             </div>
-            <div class='bg-white shadow h-24  rounded flex justify-around font-bold  items-center'>
+            <div class='bg-gray-600 shadow h-24  rounded flex justify-around font-bold  items-center'>
                 <div class="text-center">
                     <p>Posts</p>
-                    <i class=" fa-solid fa-blog"></i>
+                    <i class="text-blue-500 fa-solid fa-blog"></i>
                 </div>
                 <div>
-                    <p><?= $resultPosts ?></p>
+                    <p class="text-white"><?= $resultPosts ?></p>
                 </div>
             </div>
-            <div class='bg-white shadow h-24  rounded flex justify-around font-bold items-center  '>
+            <div class='bg-gray-600 shadow h-24  rounded flex justify-around font-bold items-center  '>
                 <div class="text-center">
                     <p>Categorys</p>
-                    <i class="fa-solid fa-braille"></i>
+                    <i class="text-pink-500 fa-solid fa-braille"></i>
                 </div>
                 <div>
-                    <p><?= $resultCategory ?></p>
+                    <p class="text-white"><?= $resultCategory ?></p>
                 </div>
             </div>
-            <div class='card bg-white shadow h-24  rounded flex justify-around font-bold items-center'>
+            <div class='card bg-gray-600 shadow h-24  rounded flex justify-around font-bold items-center'>
                 <div class="text-center">
                     <p>Best Category</p>
-                    <i class="fa-solid fa-fire"></i>
+                    <i class="text-green-500 fa-solid fa-fire"></i>
                 </div>
                 <div>
-                    <p>
+                    <p class="text-white">
                         <?= $bestCategory ?>
                     </p>
                 </div>
             </div>
         </div>
         <?php include('includes/alerts.php') ?>
-        <div class="mt-2 relative overflow-x-auto shadow-md sm:rounded-lg">
-            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+        <div class="mt-2 relative overflow-x-auto shadow-md sm:rounded-lg mb-4">
+            <table class="w-full text-sm text-left text-gray-400">
+                <thead class="text-xs uppercase bg-gray-700 text-gray-400">
                     <tr>
                         <th scope="col" class="text-bold px-6 py-3">
                             Name
@@ -113,7 +113,7 @@ if(isset($_POST['edit-profile'])){
                     <?php
                     if ($mydata == 0) {
                     ?>
-                        <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                        <tr class="border-b bg-gray-900 dark:border-gray-700">
                             <th colspan="4" class="text-center">
                                 ther is no data to show
                             </th>
@@ -121,7 +121,7 @@ if(isset($_POST['edit-profile'])){
                         <?php
                     } else {
                         foreach ($mydata as $user) { ?>
-                            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                            <tr class="bg-gray-900 dark:border-gray-700">
                                 <td class="px-6 py-4">
                                     <?= $user['name'] ?>
                                 </td>

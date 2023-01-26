@@ -21,8 +21,8 @@ if (isset($_POST['search'])) {
        $data = $post->getAllPosts($param);
 
     }else{
-        $param=0;
-        $data = $post->getAllPosts($param);
+        // $param=0;
+        $data = $post->getAllPosts();
     }
     $users = new UsersController();
     $connectedUser=$users->ConnectedUser();
@@ -62,41 +62,41 @@ $resultUsers = $users->AllUsers();
 </header>
 <section class="my-section mt-20 flex justify-center">
     <div class="w-11/12">
-        <div class=" mb-4  w-full grid row gap-4  xl:grid-cols-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ">
-            <div class='bg-white shadow h-24 rounded flex justify-around items-center font-bold'>
+    <div class=" mb-4  w-full grid row gap-4  xl:grid-cols-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ">
+            <div class='bg-gray-600 shadow h-24 rounded flex justify-around items-center font-bold'>
                 <div class="text-center">
                     <p>Users</p>
-                    <i class="fa-solid fa-users"></i>
+                    <i class="text-yellow-500 fa-solid fa-users"></i>
                 </div>
                 <div>
-                    <p><?= $resultUsers ?></p>
+                    <p class="text-white"><?= $resultUsers ?></p>
                 </div>
             </div>
-            <div class='bg-white shadow h-24  rounded flex justify-around font-bold  items-center'>
+            <div class='bg-gray-600 shadow h-24  rounded flex justify-around font-bold  items-center'>
                 <div class="text-center">
                     <p>Posts</p>
-                    <i class=" fa-solid fa-blog"></i>
+                    <i class="text-blue-500 fa-solid fa-blog"></i>
                 </div>
                 <div>
-                    <p><?= $resultPosts ?></p>
+                    <p class="text-white"><?= $resultPosts ?></p>
                 </div>
             </div>
-            <div class='bg-white shadow h-24  rounded flex justify-around font-bold items-center  '>
+            <div class='bg-gray-600 shadow h-24  rounded flex justify-around font-bold items-center  '>
                 <div class="text-center">
                     <p>Categorys</p>
-                    <i class="fa-solid fa-braille"></i>
+                    <i class="text-pink-500 fa-solid fa-braille"></i>
                 </div>
                 <div>
-                    <p><?= $resultCategory ?></p>
+                    <p class="text-white"><?= $resultCategory ?></p>
                 </div>
             </div>
-            <div class='card bg-white shadow h-24  rounded flex justify-around font-bold items-center'>
+            <div class='card bg-gray-600 shadow h-24  rounded flex justify-around font-bold items-center'>
                 <div class="text-center">
                     <p>Best Category</p>
-                    <i class="fa-solid fa-fire"></i>
+                    <i class="text-green-500 fa-solid fa-fire"></i>
                 </div>
                 <div>
-                    <p>
+                    <p class="text-white">
                         <?= $bestCategory ?>
                     </p>
                 </div>
@@ -106,9 +106,9 @@ $resultUsers = $users->AllUsers();
             <button id="add-post" type="button" data-modal-target="staticModal" data-modal-toggle="staticModal" class="flex  items-center text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"><i class="fa-solid fa-plus mr-2"></i> <span>Add Post</span></button>
         </div>
         <?php include('includes/alerts.php'); ?>
-        <div class="relative overflow-x-auto shadow-md sm:rounded-lg mb-4">
-            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+        <div class="mt-2 relative overflow-x-auto shadow-md sm:rounded-lg mb-4">
+            <table class="w-full text-sm text-left text-gray-400">
+                <thead class="text-xs uppercase bg-gray-700 text-gray-400">
                     <tr>
                         <th scope="col" class="text-bold px-6 py-3">
                             Tilte
@@ -134,7 +134,7 @@ $resultUsers = $users->AllUsers();
                     <?php
                     if ($data == 0) {
                     ?>
-                        <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                        <tr class="border-b bg-gray-900 dark:border-gray-700">
                             <td colspan="6" class="font-bold text-center px-6 py-4">
                                 there is no data to show
                             </td>
@@ -142,7 +142,7 @@ $resultUsers = $users->AllUsers();
                         <?php
                     } else {
                         foreach ($data as $post) { ?>
-                            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                            <tr class="bg-gray-900 dark:bg-gray-900 dark:border-gray-700">
                                 <td class="px-6 py-4">
                                     <?php echo substr($post['title'],0,15).'...' ?>
                                 </td>
@@ -153,7 +153,7 @@ $resultUsers = $users->AllUsers();
                                     <?php echo '<img style="width:100px;height:80px" src="./public/images/' . $post['picture'] . '" alt="">' ?>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <?php echo $post['name'] ?>
+                                    <?php echo $post['post_category']==null ? 'no category' : $post['name'] ?>
                                 </td>
                                 <td class="px-6 py-4">
                                     <button  onclick="overview('<?= $post['title'] ?>','<?= $post['content'] ?>','<?= $post['name'] ?>','<?= $post['picture'] ?>')" type="button" class="text-white bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 shadow-lg shadow-pink-500/50 dark:shadow-lg dark:shadow-pink-80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">overview</button>
@@ -285,7 +285,7 @@ $resultUsers = $users->AllUsers();
                 <div class="mx-4 mb-2 flex justify-around">
                     <div>
                         <label for="picture" class="block mb-2 text-md font-medium text-gray-900 dark:text-white">Picture</label>
-                        <input type="file" name="picture" class="picture bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="image.png" required>
+                        <input type="file" name="picture" class="picture bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="image.png" >
                     </div>
                     <img style="width:100px;height:100px" id="image-up" alt="">
                 </div>

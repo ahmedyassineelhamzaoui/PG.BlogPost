@@ -19,15 +19,15 @@ class PostsController{
 			$title=$_POST["post-title"];
 			$content=$_POST["post-content"];
 			$category=$_POST['post-category'];
-			$regex = "/^.{1,100}$/";
-			$regexContent = "/^.{50,}$/";;
+			$regex = "/.{1,100}/";
+			$regexContent = "/^[a-zA-Z0-9,._ éàè£ùô]{50,}$/";;
             foreach($title as $index=>$titles){
 				if (!preg_match($regex, $titles)){
 					Session::set('info','title is not valid');
 					header('location:posts');
 				}
 				if (!preg_match($regexContent, $content[$index])){
-					Session::set('info','content must conatin at least 50 charcters');
+					Session::set('info','Invalid content');
 					header('location:posts');
 				}
 				else{

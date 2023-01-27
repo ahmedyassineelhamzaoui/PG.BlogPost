@@ -169,8 +169,8 @@ if (document.querySelector('#add-number')) {
     }
 }
 let addAllPosts = document.querySelector("#add-AllPosts")
-var regex = /^([a-zA-Z]).{50,}$/;
-var Titleregex = /^.{5,100}$/;
+var regex = /^[a-zA-Z0-9,._ éàè$£ùô]{50,}$/;
+var Titleregex = /^[a-zA-Z0-9 ]{5,100}$/;
 if (addAllPosts) {
     let postsTitle = document.querySelectorAll(".post-title")
     let postContent = document.querySelectorAll(".post-content")
@@ -202,7 +202,7 @@ if (addAllPosts) {
             if (!regex.test(element.value)) {
                 element.value = ""
                 element.style.border = "2px solid red"
-                element.setAttribute('placeholder', 'This text must contains at least  50 charcters')
+                element.setAttribute('placeholder', 'Invalid content')
                 element.classList.add("placeholder-red")
                 e.preventDefault();
             }
@@ -429,7 +429,7 @@ if(document.querySelector("#update-post")){
         e.preventDefault()
        }else
        if(!regex.test(document.querySelector('#editor').value)){
-        document.querySelector("#error-textContent").textContent='the content must contains at least 50 charcters'
+        document.querySelector("#error-textContent").textContent='invalid content'
         document.querySelector('#editor').style.border="2px solid red"
         e.preventDefault()
        }

@@ -6,7 +6,7 @@ require_once './controllers/HomeController.php';
 $home = new HomeController();
 
 
-$pages = ['home', 'logout', 'login', 'register', 'posts', 'add', 'category', 'users', 'forget'];
+$pages = ['logout', 'login', 'register', 'posts', 'add', 'category', 'users'];
 if (isset($_SESSION["logged"]) && $_SESSION["logged"] == true) {
     if (isset($_GET['page'])) {
         if (in_array($_GET['page'], $pages)) {
@@ -16,14 +16,13 @@ if (isset($_SESSION["logged"]) && $_SESSION["logged"] == true) {
             include('views/includes/404.php');
         }
     } else {
-        $home->index('home');
+        $home->index('posts');
     }
     require_once './views/includes/footer.php';
 } else if (isset($_GET['page']) && $_GET['page'] === 'register') {
     $home->index('register');
-} else if (isset($_GET['page']) && $_GET['page'] === 'forget') {
-    $home->index('forget');
-} else {
+}
+ else {
     $home->index('login');
 }
 require_once './views/includes/footer.php';

@@ -1,14 +1,14 @@
 <?php
 class Post {
 
-	static public function getAll(){
+	static public function getAll($numberOfButtons){
 		$stmt = DB::connect()->prepare("SELECT p.id,p.title,p.picture,p.content,p.post_category,c.name FROM post as p 
 		INNER JOIN category as c on p.post_category = c.id_category
 		WHERE p.post_category is not null
 		UNION
 		SELECT p.id,p.title,p.picture,p.content,p.post_category,null FROM post as p 
 		WHERE p.post_category is null
-		");
+		 ");
 		$stmt->execute();
 		if($stmt->rowCount()==0){
 			return 0;
@@ -16,6 +16,19 @@ class Post {
 			// die(var_dump($stmt->fetchAll()));
 			return $stmt->fetchAll();
 
+		}
+		$stmt = null;
+	}
+	static public function getPostCategory($name){
+		$stmt = DB::connect()->prepare("SELECT p.id,p.title,p.picture,p.content,p.post_category,c.name FROM post as p 
+		INNER JOIN category as c on p.post_category = c.id_category
+		WHERE name=?
+		 ");
+		$stmt->execute($name);
+		if($stmt->rowCount()==0){
+			return 0;
+		}else{
+			return $stmt->fetchAll();
 		}
 		$stmt = null;
 	}

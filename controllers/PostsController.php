@@ -8,8 +8,8 @@ class PostsController{
 	 public $post_category;
 
 
-	public function getAllPosts(){
-		$post = Post::getAll();
+	public function getAllPosts($numberOfButtons){
+		$post = Post::getAll($numberOfButtons);
 		return $post;
 	}
 	public function addPost(){
@@ -93,6 +93,11 @@ class PostsController{
 			$result=Post::GetSearchPost($data);
 			return $result;
 		}
+	}
+	public function getChaque($data){
+		$name=array($data);
+		$result=Post::getPostCategory($name);
+		return $result;
 	}
 }
 

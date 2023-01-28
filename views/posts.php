@@ -5,7 +5,9 @@ $title="posts";
 $post = new PostsController();
 $category = new CategoryController();
 $mydata = $category->GetUniqueCategory();
-
+$resultPosts = $post->AllPosts();
+$numberOfButtons =ceil($resultPosts / 4);
+$postperpage=4;
 if (isset($_POST["delete-post"])) {
     $post = new PostsController();
     $post->deletePosts();
@@ -16,14 +18,8 @@ if (isset($_POST['update-post'])) {
 }
 if (isset($_POST['search'])) {
     $data = $post->searchPosts();
-} else
-    if(isset($_GET['mypage'])){
-       $param=$_GET['mypage']*4;
-       $data = $post->getAllPosts($param);
-
-    }else{
-        // $param=0;
-        $data = $post->getAllPosts();
+} else{
+        $data = $post->getAllPosts($postperpage);
     }
     $users = new UsersController();
     $connectedUser=$users->ConnectedUser();
@@ -31,7 +27,7 @@ if (isset($_POST['search'])) {
         $users->UpdateProfile();
     }
 $users = new UsersController();
-$resultPosts = $post->AllPosts();
+
 $resultCategory = $category->AllCategorys();
 if($category->getBestCategory()==0){
     $bestCategory = "no category";
@@ -182,23 +178,29 @@ $resultUsers = $users->AllUsers();
                 </tbody>
             </table>
         </div>
-        <?php
-        // $numberOfButtons =ceil($resultPosts / 4);
-        ?>
-        <!-- <div class="flex justify-end mb-3">
-            <div>
-                <button type="submit" class="px-4 py-2 rounded bg-blue-600 font-bold text-white hover:bg-blue-700"><i class="fa-solid fa-caret-left"></i></button>
-
+  
+        <div class="flex justify-end mb-3">
+            <div class="flex justify-end mb-3">
+                <form method="post">
+                <input type="hidden" name="previous-btnpaginiationValue">
+                <button name="previous-btnpaginiation" type="submit" class="px-4 py-2 rounded bg-blue-600 font-bold text-white hover:bg-blue-700"><i class="fa-solid fa-caret-left"></i></button>
+                </form>
                 <?php
                 for ($i = 1; $i <=$numberOfButtons; $i++) {
                 ?>
-                    <a href='?mypage="<?= $i ?>"' class="px-4 py-2 rounded bg-blue-600 font-bold text-white hover:bg-blue-700"><?= $i ?></a>
-                <?php
+                    <form method="post" class="mx-1">
+                    <input type="hidden" name="curent-btnpaginiationValue">
+                    <button name="curent-btnpaginiation" class="px-4 py-2 rounded bg-blue-600 font-bold text-white hover:bg-blue-700" value="<?= $i ?>"><?= $i ?></a>
+                    </form>
+               <?php
                 }
                 ?>
-                <button type="submit" class="px-4 py-2 rounded bg-blue-600 font-bold text-white hover:bg-blue-700"><i class="fa-sharp fa-solid fa-caret-right"></i></button>
+                <form method="post" class="mxl-1">
+                 <input type="hidden" name="next-btnpaginiationValue">
+                <button name="next-btnpaginiation" type="submit" class="px-4 mx-1 py-2 rounded bg-blue-600 font-bold text-white hover:bg-blue-700"><i class="fa-sharp fa-solid fa-caret-right"></i></button>
+                </form>
             </div>
-        </div> -->
+        </div>
     </div>
 </section>
 </main>

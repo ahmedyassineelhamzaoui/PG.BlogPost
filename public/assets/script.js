@@ -473,3 +473,15 @@ if(document.querySelector("#cancel-deletedUser")){
   document.querySelector("#delet-user").classList.add('hidden')
     }
 }
+
+let headerMenu=document.querySelector(".header-menu");
+let navPages=document.querySelector("#nav-page");
+let navCompt=document.querySelector("#nav-compt");
+if(headerMenu){
+    headerMenu.onclick=()=>{
+        console.log("ok");
+        navCompt.classList.toggle("active");
+        navPages.classList.toggle("active");
+        headerMenu.classList.toggle("active");
+    }
+}

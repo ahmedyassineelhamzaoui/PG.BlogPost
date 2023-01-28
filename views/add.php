@@ -33,7 +33,7 @@ require_once('includes/dashboard.php')
                     </div>
                     <div class="pt-2">
                         <label for="editor" class="block mb-2 text-md font-medium text-gray-900 dark:text-white">Content</label>
-                        <textarea  name="post-content[]" rows="8" class="post-content w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600" placeholder="Write an article..."></textarea>
+                        <textarea   name="post-content[]" rows="8" class="post-content w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600" placeholder="Write an article..."></textarea>
                     </div>
                     <p class="content-error hidden text-red-600 font-bold">you must fill this field</p>
 

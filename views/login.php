@@ -8,7 +8,35 @@ $compte->login();
 }
 
 ?>
-<section class="login-page">
+<header class="fixed header-landingpage  ">
+  <nav class="flex px-2 justify-between items-center nav-landingpage shadow-lg shadow-gray-700">
+    <a class="text-fuchsia-800 nav-logo text-purple-500" href="home">Blog<span class="text-blue-400">Post</span></a>
+    <ul id="nav-page" class="flex my-auto nav-pages">
+      <li><a class="ml-2 about-page" href="home">Home</a></li>
+      <li><a class="ml-2 mr-2 news-page" href="posts">posts</a></li>
+      <li><a class="ml-2 mr-2 tearms-page" href="about">About</a></li>
+      <li><a class="ml-2 mr-2 contact-page" href="contact">Contact</a></li>
+    </ul>
+    <ul id="nav-compt" class="flex  my-auto nav-compte">
+      <li><a href="login" class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800">
+          <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white hover:text-white font-bold dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+            Sign in
+          </span>
+        </a>
+      </li>
+      <li><a href="register" class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800">
+          <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 font-bold hover:text-white rounded-md group-hover:bg-opacity-0">
+            Sign up
+          </span>
+        </a></li>
+    </ul>
+    <div class="header-menu">
+      <span class="ligne"></span>
+      <span class="ligne"></span>
+      <span class="ligne"></span>
+    </div>
+  </nav>
+</header>
   <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto h-screen lg:py-0">
       <div class="w-full bg-white rounded-lg shadow  md:mt-0 sm:max-w-md xl:p-0 ">
           <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -47,27 +75,3 @@ $compte->login();
           </div>
       </div>
   </div>
-</section>
-<?php
-// if(isset($_COOKIE['email']) && isset($_COOKIE["password"])){
-//     $email=$_COOKIE['email'];
-//     $password=$_COOKIE['password'];
-//     echo"
-//     <script>
-//      document.querySelector('#email-login').value='$email'
-//      document.querySelector('#email-login').style.background='#cffafe'
-//      document.querySelector('#password-login').value='$password'
-//      document.querySelector('#password-login').style.background='#cffafe'
-//     </script>
-//     ";
-// }else{
-//     echo"
-//     <script>
-//      document.querySelector('#email-login').value=''
-//      document.querySelector('#password-login').value=''
-//     </script>
-//     ";
-// }
-
-
-?>

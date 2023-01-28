@@ -9,9 +9,11 @@ $result = $user->ConnectedUser();
 
 <aside class="side-bar z-20">
     <div class="sidebar-content">
+        <a href="home">
         <ul class="relative top-2 left-2">
             <li class=" flex justify-start items-center "><img class="w-10 h-10 " src="./public/images/la-lettre-b.png" alt=""><span class="hidden Blog-text ml-2 font-bold text-md text-indigo-700">BlogPost</span></li>
         </ul>
+        </a>
         <i class="hidden  icon-left icon fa-solid fa-angles-left"></i>
         <i class="icon-right icon fa-solid fa-angles-right"></i>
         <div class="profile-image">

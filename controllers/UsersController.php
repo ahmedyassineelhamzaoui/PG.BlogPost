@@ -70,7 +70,7 @@ class UsersController
                         $_SESSION['name'] = $result->name;
                         $_SESSION['id']=$result->id;
 
-                        header('location:users');
+                        header('location:home');
                     } else {
                         Session::set('Error', 'email or password are not correct');
                         header('location:login');
@@ -82,7 +82,7 @@ class UsersController
                         $_SESSION['id']=$result->id;
                         setcookie('email', $result->email, time() + 60 * 60 * 7);
                         setcookie('password', $result->password, time() + 60 * 60 * 7);
-                        header('location:users');
+                        header('location:home');
                     } else {
                         Session::set('Error', 'email or password are not correct');
                         header('location:login');
@@ -95,7 +95,7 @@ class UsersController
                         $_SESSION['name'] = $result->name;
                         $_SESSION['id']=$result->id;
 
-                        header('location:users');
+                        header('location:home');
                     } else {
                         Session::set('Error', 'email or password are not correct');
                         header('location:login');
@@ -110,7 +110,7 @@ class UsersController
                         $_SESSION['name'] = $result->name;
                         $_SESSION['id']=$result->id;
 
-                        header('location:users');
+                        header('location:home');
                     } else {
                         Session::set('Error', 'email or password are not correct');
                         header('location:login');

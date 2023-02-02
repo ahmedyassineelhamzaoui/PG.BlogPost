@@ -179,7 +179,7 @@ $resultUsers = $users->AllUsers();
             </table>
         </div>
   
-        <div class="flex justify-end mb-3">
+        <!-- <div class="flex justify-end mb-3">
             <div class="flex justify-end mb-3">
                 <form method="post">
                 <input type="hidden" name="previous-btnpaginiationValue">
@@ -200,7 +200,7 @@ $resultUsers = $users->AllUsers();
                 <button name="next-btnpaginiation" type="submit" class="px-4 mx-1 py-2 rounded bg-blue-600 font-bold text-white hover:bg-blue-700"><i class="fa-sharp fa-solid fa-caret-right"></i></button>
                 </form>
             </div>
-        </div>
+        </div> -->
     </div>
 </section>
 </main>
@@ -241,15 +241,15 @@ $resultUsers = $users->AllUsers();
     </div>
 </div>
 
-<div id="my-overView" class="hidden  fixed flex justify-center items-center top-0 left-0 right-0 bg-black h-screen bg-opacity-50 z-20">
-    <div class="relative mx-4 max-w-lg w-3/5 h-4/5 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 overflow-x-auto">
+<div id="my-overView" class="hidden w-full  fixed flex justify-center items-center top-0 left-0 right-0 bg-black h-screen bg-opacity-50 z-20">
+    <div class="relative mx-4 w-9/12 h-4/5 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 overflow-x-auto">
         <img id="Opost-image" class="rounded-t-lg h-2/5 w-full">
         <div class="p-5">
             <h5 id='Opost-title' class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"></h5>
             <p id="Opost-content" class="mb-3 font-normal text-gray-700 dark:text-gray-400"></p>
             <b id="Opsts-Category"></b>
         </div>
-        <div class="absolute bottom-0 flex justify-end right-1">
+        <div class="flex justify-end ">
             <button id="hide-overView" type="button" class="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Decline</button>
         </div>
     </div>

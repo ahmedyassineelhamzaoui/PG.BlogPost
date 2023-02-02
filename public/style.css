@@ -4,14 +4,16 @@ body{
     font-family: cursive;
  }
  /* login page */
-.login-page {
-    background-image: url('./images/social1.jpg');
-    background-size: cover;
-    background-attachment: center !important;
-    background-position: center;
-    background-repeat: no-repeat;
-    width: 100%;
-}
+
+.home{
+background-image: linear-gradient(to bottom, rgba(72, 79, 120, 0.52), rgba(83, 9, 64, 0.73)), url('./images/imheader.jpg');
+background-repeat: no-repeat;
+background-size: cover;
+width:100%;
+background-position: center; 
+height:100vh;
+
+}  
 /* dahsboard page */
 /*dashboard-sidebar*/
 .side-bar{
@@ -24,6 +26,13 @@ body{
     transition: .5s;
     z-index:10;
     box-shadow: 2px 0px 10px 1px  rgb(2, 2, 2);
+}
+pre{
+    text-shadow: 2px 3px #0f0e0e;
+
+}
+#about{
+   text-decoration: underline;
 }
 .side-bar .sidebar-content{
   display: flex;
@@ -179,7 +188,6 @@ body{
 }
  .header-landingpage{
     position: relative;
-    /* box-shadow: 2px 2px 2px 10px white !important; */
 } 
 
 .header-landingpage .header-menu{

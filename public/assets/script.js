@@ -169,8 +169,8 @@ if (document.querySelector('#add-number')) {
     }
 }
 let addAllPosts = document.querySelector("#add-AllPosts")
-var regex = /^[a-zA-Z0-9,._ éàè$£ùô]{50,}$/;
-var Titleregex = /^[a-zA-Z0-9 ]{5,100}$/;
+var regex = /^[a-zA-Z0-9,._ #éàè$£ùô]{50,}$/;
+var Titleregex = /^[.a-zA-Z0-9 ]{3,100}$/;
 if (addAllPosts) {
     let postsTitle = document.querySelectorAll(".post-title")
     let postContent = document.querySelectorAll(".post-content")
@@ -484,4 +484,13 @@ if(headerMenu){
         navPages.classList.toggle("active");
         headerMenu.classList.toggle("active");
     }
+}
+
+function viewDetails(title,picture,content,name){
+    console.log(title,content,name)
+    document.querySelector("#my-overView").classList.remove('hidden')
+    document.querySelector("#home-image").setAttribute('src','./public/images/'+picture)
+    document.querySelector("#home-title").textContent=title;
+    document.querySelector("#home-content").textContent=content;
+    document.querySelector("#home-Category").textContent=name;
 }
